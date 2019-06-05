@@ -1,3 +1,8 @@
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -7,7 +12,26 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+p {
+  color: #555;
+}
+
+.blue {
+  color: #477ACC;
+}
+
+.yellow {
+  color: #EAC435;
+}
+
+.green {
+  color: #09a55e;
+}
+
+.red {
+  color: #CA1551;
+}
+
+.orange {
+  color: #FB4D3D;
 }
