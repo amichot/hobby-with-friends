@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
 
 import Header from '../Header/Header';
-import LoginPage from '../routes/LoginPage/LoginPage';
+import LoginPage from '../../routes/LoginPage/LoginPage';
+import RegistrationPage from '../../routes/RegistrationPage/RegistrationPage';
 
 import './App.css';
 
@@ -17,6 +18,7 @@ class App extends Component {
           {
             <Switch>
               <Route path="/login" component={LoginPage} />
+              <Route path="/register" component={RegistrationPage} />
             </Switch>
           }
         </main>
