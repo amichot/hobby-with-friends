@@ -48,4 +48,31 @@
     margin-left: 10px;
     margin-right: 10px;
   }
+
+  .Span {
+    margin-left: 15px;
+    font-weight: normal;
+  }
+
+  .Li {
+    list-style-type: none;
+    font-weight: bold;
+    padding-bottom: 10px;
+  }
   
+  /* UsersAttending */
+  .kick {
+    padding: 0;
+    font-weight: normal;
+    font-size: .9em;
+  }
+
+  .user {
+    float: left;
+    min-width: 150px
+  }
+
+  .Ul {
+    border: 1px solid grey;
+    max-width: 600px;
+  }

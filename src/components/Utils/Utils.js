@@ -12,7 +12,6 @@ Object.assign(ReactTableDefaults, {
 });
 
 export function NiceDate({date, format = 'YYYY-MM-DD'}) {
-  console.log('format', formatDate(date, format));
   return formatDate(date, format);
 }
 
@@ -67,4 +66,16 @@ export function Section({className, list, ...props}) {
 
 export function Table({className, ...props}) {
   return <ReactTable className={['Table', className].join(' ')} {...props} />;
+}
+
+export function Span({className, ...props}) {
+  return <span className={['Span', className].join(' ')} {...props} />;
+}
+
+export function Li({className, ...props}) {
+  return <li className={['Li', className].join(' ')} {...props} />;
+}
+
+export function Ul({className, ...props}) {
+  return <ul className={['Ul', className].join(' ')} {...props} />;
 }

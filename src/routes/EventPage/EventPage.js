@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Section} from '../../components/Utils/Utils';
-import EventForm from '../../components/EventForm/EventForm';
+import Event from '../../components/Event/Event';
 
-export default class CreateEvent extends Component {
+export default class EventPage extends Component {
   render() {
     return (
       <Section className="CreateEvent">
-        <h2>Create Event</h2>
-        <EventForm />
+        <h2>Event Name</h2>
+        <Event />
       </Section>
     );
   }
