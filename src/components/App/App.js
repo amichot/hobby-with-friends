@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 
 import Header from '../Header/Header';
@@ -12,8 +12,7 @@ import UserProfilePage from '../../routes/UserProfilePage/UserProfilePage';
 
 import './App.css';
 
-class App extends Component {
-  render() {
+function App(props) {
     return (
       <div className="App">
         <header className="main-content">
@@ -35,6 +34,5 @@ class App extends Component {
       </div>
     );
   }
-}
 
 export default App;
