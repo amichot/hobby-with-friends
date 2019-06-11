@@ -16,7 +16,8 @@ export default function Event(props) {
           <Span> Baseball, Basketball, Weight Lifting, Online Gaming </Span>
         </Li>
         <Li key="location" className="location">
-          Event Location:
+          Event Location: <br />
+          <Span>1501 Dave Dixon Dr New Orleans, LA 70113 United States</Span>
         </Li>
         <Li key="date" className="date_time">
           Date/Time: <br />

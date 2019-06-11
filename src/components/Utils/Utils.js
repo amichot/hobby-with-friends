@@ -1,15 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Redirect} from 'react-router';
+
 import {format as formatDate} from 'date-fns';
 import ReactTable from 'react-table';
+//import selectTableHOC from 'react-table/lib/hoc/selectTable';
 import {ReactTableDefaults} from 'react-table';
 
 import './Utils.css';
 import 'react-table/react-table.css';
 
+//const SelectTable = selectTableHOC(ReactTable);
+
 Object.assign(ReactTableDefaults, {
   defaultPageSize: 5,
   minRows: 3,
 });
+
+export function useFormInput(initialValue) {
+  const [value, setValue] = useState(initialValue);
+
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+
+  return {
+    value,
+    onChange: handleChange,
+  };
+}
 
 export function NiceDate({date, format = 'YYYY-MM-DD'}) {
   return formatDate(date, format);
@@ -63,9 +81,25 @@ export function Section({className, list, ...props}) {
     .join(' ');
   return <section className={classes} {...props} />;
 }
+function test(e) {
+  console.log('i ran', e);
+  return <Redirect to="/create" />;
+}
 
 export function Table({className, ...props}) {
-  return <ReactTable className={['Table', className].join(' ')} {...props} />;
+  return (
+    <ReactTable
+      getTdProps={(state, rowInfo, column, instance) => {
+        return {
+          onClick: e => {
+            test(column);
+          },
+        };
+      }}
+      className={['Table', className].join(' ')}
+      {...props}
+    />
+  );
 }
 
 export function Span({className, ...props}) {
