@@ -1,34 +1,26 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
-import {Table, MyDateFormat} from '../Utils/Utils';
+import {Table} from '../Utils/Utils';
 
 import 'react-table/react-table.css';
 
 export default function SearchEventResults(props) {
-  const data = [
-    {
-      name: 'Friday Night Basketball',
-      location: '275 S River Rd, Port Allen, LA',
-      date: MyDateFormat(new Date()),
-    },
-    {
-      name: 'Flag Football 5v5',
-      location: 'Andolsek Park 1200 Canal Blvd Thibodaux LA 70301',
-      date: MyDateFormat(new Date('2019-06-17T13:24:00')),
-    },
-    {
-      name: 'Workout Partner',
-      location: '275 S River Rd, Port Allen, LA',
-      date: MyDateFormat(new Date('2019-07-07T11:30:00')),
-    },
-  ];
+  props.events.forEach(e => {
+    e['name'] = <Link to={`/event/${e['id']}`}>{e['name']}</Link>;
+  });
+
+  const data = props.events;
+
   const columns = [
     {
       Header: 'Name',
       accessor: 'name',
+      maxWidth: 280,
+      minWidth: 150,
     },
-    {Header: 'Location', accessor: 'location'},
-    {Header: 'Date/Time', accessor: 'date'},
+    {Header: 'Location', accessor: 'location', maxWidth: 600},
+    {Header: 'Date/Time', accessor: 'date', maxWidth: 180},
   ];
   return (
     <React.Fragment>

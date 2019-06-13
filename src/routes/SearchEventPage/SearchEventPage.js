@@ -8,7 +8,7 @@ export default function LoginPage(props) {
     <Section className="SearchEvent">
       <h2>Search Event</h2>
       <SearchEventForm />
-      <SearchEventResults />
+      <SearchEventResults {...props} />
     </Section>
   );
 }

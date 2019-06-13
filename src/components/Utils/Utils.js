@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import {Redirect} from 'react-router';
-
+import {Redirect} from 'react-router-dom';
 import {format as formatDate} from 'date-fns';
 import ReactTable from 'react-table';
-//import selectTableHOC from 'react-table/lib/hoc/selectTable';
 import {ReactTableDefaults} from 'react-table';
 
 import './Utils.css';
@@ -81,25 +79,13 @@ export function Section({className, list, ...props}) {
     .join(' ');
   return <section className={classes} {...props} />;
 }
-function test(e) {
-  console.log('i ran', e);
-  return <Redirect to="/create" />;
+export function test(e) {
+  console.log('test ran', e);
+  return <Redirect push to="/create" />;
 }
 
 export function Table({className, ...props}) {
-  return (
-    <ReactTable
-      getTdProps={(state, rowInfo, column, instance) => {
-        return {
-          onClick: e => {
-            test(column);
-          },
-        };
-      }}
-      className={['Table', className].join(' ')}
-      {...props}
-    />
-  );
+  return <ReactTable className={['Table', className].join(' ')} {...props} />;
 }
 
 export function Span({className, ...props}) {

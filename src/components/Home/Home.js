@@ -1,23 +1,24 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import {Table} from '../Utils/Utils';
 
-import 'react-table/react-table.css';
-
 export default function Home(props) {
+  props.events.forEach(e => {
+    e['name'] = <Link to={`/event/${e['id']}`}>{e['name']}</Link>;
+  });
+
   const data = props.events;
 
   const columns = [
     {
-      Header: 'id',
-      accessor: 'id',
-    },
-    {
       Header: 'Name',
       accessor: 'name',
+      maxWidth: 280,
+      minWidth: 150,
     },
-    {Header: 'Location', accessor: 'location'},
-    {Header: 'Date/Time', accessor: 'date'},
+    {Header: 'Location', accessor: 'location', maxWidth: 600},
+    {Header: 'Date/Time', accessor: 'date', maxWidth: 180},
   ];
   return (
     <React.Fragment>

@@ -25,7 +25,7 @@ export default function SearchEventForm(props) {
           id="SearchEventForm__date_time"
         />
       </div>
-      <Button type="submit">Create Event</Button>
+      <Button type="submit">Search</Button>
     </form>
   );
 }

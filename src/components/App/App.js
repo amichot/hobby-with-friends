@@ -24,12 +24,32 @@ function App(props) {
       information:
         'Want eight people total for one sub on each team. Get there 30 minutes early for warmups',
     },
+    {
+      id: 2,
+      name: 'Sand Volleyball',
+      tags: 'volleyball',
+      location: '123 VolleyBall Lane, Los Angeles, CA 12345 United States',
+      date: MyDateFormat(new Date()),
+      information: 'Looking for 5 people total for some fun in the sun',
+    },
   ];
+  const testUsers = [
+    {id: 1, name: 'Jake'},
+    {id: 2, name: 'Sally'},
+    {id: 3, name: 'Bill'},
+    {id: 4, name: 'Carl'},
+    {id: 5, name: 'Bobby'},
+  ];
+
   const [events, setEvents] = useState(newEvent);
-  console.log(events);
+  const [users, setUsers] = useState(testUsers);
 
   function updateEvents(e) {
     return setEvents(e);
+  }
+
+  function updateUsers(e) {
+    return setUsers(e);
   }
 
   function addEvent(e = {}) {
@@ -80,7 +100,7 @@ function App(props) {
             <Route
               path="/event/:eventid"
               render={routeProps => (
-                <EventPage {...routeProps} events={events} />
+                <EventPage {...routeProps} events={events} users={users} />
               )}
             />
             <Route path="/profile" component={UserProfilePage} />
