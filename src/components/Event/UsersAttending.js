@@ -7,7 +7,7 @@ export default function Event(props) {
     return (
       <Li key={user.id}>
         <Span className="user">{user.name}</Span>{' '}
-        <Button className="kick" type="submit">
+        <Button className="kick" type="button">
           remove
         </Button>
       </Li>

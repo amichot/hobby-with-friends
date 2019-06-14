@@ -9,6 +9,7 @@ import CreateEventPage from '../../routes/CreateEventPage/CreateEventPage';
 import SearchEventPage from '../../routes/SearchEventPage/SearchEventPage';
 import EventPage from '../../routes/EventPage/EventPage';
 import UserProfilePage from '../../routes/UserProfilePage/UserProfilePage';
+import UpdateProfilePage from '../../routes/UserProfilePage/UpdateProfilePage';
 import {MyDateFormat} from '../Utils/Utils';
 
 import './App.css';
@@ -17,6 +18,7 @@ function App(props) {
   const newEvent = [
     {
       id: 1,
+      owner: 1,
       name: 'Basketball 3v3',
       tags: 'basketball',
       location: '1501 Dave Dixon Dr, New Orleans LA 70113 United States',
@@ -26,15 +28,26 @@ function App(props) {
     },
     {
       id: 2,
+      owner: 2,
       name: 'Sand Volleyball',
       tags: 'volleyball',
       location: '123 VolleyBall Lane, Los Angeles, CA 12345 United States',
       date: MyDateFormat(new Date()),
       information: 'Looking for 5 people total for some fun in the sun',
+      attending: [1, 2, 5],
     },
   ];
   const testUsers = [
-    {id: 1, name: 'Jake'},
+    {
+      id: 1,
+      name: 'Jake123',
+      'full-name': 'Jake Doe',
+      tags: 'baseball, basketball, weight lifting, online gaming',
+      location: 'New York',
+      email: 'jake123@gmail.com',
+      'about-me':
+        'Ligula curabitur fermentum turpis ante laoreet amet turpis curabitur nec curabitur torquent dolor elementum',
+    },
     {id: 2, name: 'Sally'},
     {id: 3, name: 'Bill'},
     {id: 4, name: 'Carl'},
@@ -52,7 +65,7 @@ function App(props) {
     return setUsers(e);
   }
 
-  function addEvent(e = {}) {
+  function handleAddEvent(e = {}) {
     const newEvents = events;
     newEvents.push({
       id: events.length + 1,
@@ -66,6 +79,14 @@ function App(props) {
     return newEvents;
   }
 
+  function handleUpdateUser(updatedUser = {}) {
+    const newUsers = testUsers.map(user =>
+      user.id === updatedUser.id ? updatedUser : user
+    );
+    updateUsers(newUsers);
+    return newUsers;
+  }
+
   return (
     <div className="App">
       <header className="main-content">
@@ -77,7 +98,8 @@ function App(props) {
             <Route path="/login" component={LoginPage} />
             <Route path="/register" component={RegistrationPage} />
             <Route
-              path="/home"
+              exact
+              path="/"
               render={routeProps => (
                 <HomePage {...routeProps} events={events} />
               )}
@@ -87,7 +109,7 @@ function App(props) {
               render={routeProps => (
                 <CreateEventPage
                   {...routeProps}
-                  createEvent={e => addEvent(e)}
+                  addEvent={e => handleAddEvent(e)}
                 />
               )}
             />
@@ -103,7 +125,22 @@ function App(props) {
                 <EventPage {...routeProps} events={events} users={users} />
               )}
             />
-            <Route path="/profile" component={UserProfilePage} />
+            <Route
+              path="/profile"
+              render={routeProps => (
+                <UserProfilePage {...routeProps} user={users[0]} />
+              )}
+            />
+            <Route
+              path="/update-profile"
+              render={routeProps => (
+                <UpdateProfilePage
+                  {...routeProps}
+                  user={users[0]}
+                  updateUser={e => handleUpdateUser(e)}
+                />
+              )}
+            />
           </Switch>
         }
       </main>

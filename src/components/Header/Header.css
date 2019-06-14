@@ -50,7 +50,7 @@ nav:after {
 }
 
 /* Removing padding, margin and "list-style" from the "ul",
- * and adding "position:reltive" */
+ * and adding "position:relative" */
 
 nav ul {
     float: right;
@@ -116,7 +116,7 @@ nav ul li:hover > ul {
     display: inherit;
 }
 
-/* Fisrt Tier Dropdown */
+/* First Tier Dropdown */
 
 nav ul ul li {
     width: 170px;
@@ -179,7 +179,7 @@ li > a:only-child:after {
         display: none;
     }
 
-    /* Stylinf the toggle lable */
+    /* Style for the toggle label */
     .toggle {
         display: block;
         padding: 6px 15px;
@@ -210,7 +210,7 @@ li > a:only-child:after {
         background-color: #fff;
     }
 
-    /* Display Dropdown when clicked on Parent Lable */
+    /* Display Dropdown when clicked on Parent Label */
     [id^=drop]:checked + ul {
         display: block;
         background: #fff;
@@ -270,7 +270,7 @@ li > a:only-child:after {
         display: none;
     }
 
-    /* Fisrt Tier Dropdown */
+    /* First Tier Dropdown */
     nav ul ul li {
         display: block;
         width: 100%;

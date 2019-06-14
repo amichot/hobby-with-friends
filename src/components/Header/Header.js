@@ -9,7 +9,7 @@ export default function Header() {
         <div id="logo">
           <h1>
             {' '}
-            <Link to="/home">Hobby with Friends </Link>
+            <Link to="/">Hobby with Friends </Link>
           </h1>
         </div>
         <label htmlFor="drop" className="toggle">
@@ -18,7 +18,7 @@ export default function Header() {
         <input type="checkbox" id="drop" />
         <ul className="menu mt-2 ml-auto">
           <li>
-            <Link className="scroll" to="/home">
+            <Link className="scroll" to="/">
               <span>Home</span>
             </Link>
           </li>

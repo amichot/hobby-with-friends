@@ -14,23 +14,6 @@ Object.assign(ReactTableDefaults, {
   minRows: 3,
 });
 
-export function useFormInput(initialValue) {
-  const [value, setValue] = useState(initialValue);
-
-  function handleChange(e) {
-    setValue(e.target.value);
-  }
-
-  return {
-    value,
-    onChange: handleChange,
-  };
-}
-
-export function NiceDate({date, format = 'YYYY-MM-DD'}) {
-  return formatDate(date, format);
-}
-
 export function MyDateFormat(date) {
   let myDate =
     date
@@ -47,6 +30,19 @@ export function MyDateFormat(date) {
     ' ' +
     date.toLocaleDateString();
   return myDate;
+}
+
+export function useFormInput(initialValue) {
+  const [value, setValue] = useState(initialValue);
+
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+
+  return {
+    value,
+    onChange: handleChange,
+  };
 }
 
 export function Hyph() {

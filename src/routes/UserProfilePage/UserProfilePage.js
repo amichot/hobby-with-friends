@@ -6,7 +6,7 @@ export default function UserProfilePage(props) {
   return (
     <Section className="UserProfilePage">
       <h2>My Profile</h2>
-      <UserProfile />
+      <UserProfile {...props} />
     </Section>
   );
 }

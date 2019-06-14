@@ -1,17 +1,33 @@
 import React from 'react';
-import {useFormInput, Button, Input, Required, Textarea} from '../Utils/Utils';
+
+import {
+  useFormInput,
+  Button,
+  Input,
+  Required,
+  Textarea,
+  MyDateFormat,
+} from '../Utils/Utils';
 
 export default function EventForm(props) {
+  const today = new Date();
+  const todaysDate =
+    today.getFullYear() +
+    '-' +
+    ('0' + (today.getMonth() + 1)).slice(-2) +
+    '-' +
+    ('0' + today.getDate()).slice(-2);
+
   const name = useFormInput('');
   const tags = useFormInput('');
   const location = useFormInput('');
-  const date = useFormInput('');
+  const date = useFormInput(`${todaysDate}T12:00`);
   const information = useFormInput('');
   const event = {
     name: name.value,
     tags: tags.value,
     location: location.value,
-    date: date.value,
+    date: MyDateFormat(new Date(date.value)),
     information: information.value,
   };
 
@@ -21,7 +37,8 @@ export default function EventForm(props) {
       action="#"
       onSubmit={e => {
         e.preventDefault();
-        return props.createEvent(event);
+        props.addEvent(event);
+        return props.history.push('/');
       }}
     >
       <div className="event_name">
@@ -68,6 +85,7 @@ export default function EventForm(props) {
           name="date_time"
           type="datetime-local"
           pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
+          value={`${todaysDate}T11:38:00.01`}
           {...date}
           required
           id="EventForm__date_time"

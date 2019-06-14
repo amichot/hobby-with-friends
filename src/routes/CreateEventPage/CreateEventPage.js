@@ -7,7 +7,7 @@ export default function CreateEvent(props) {
   return (
     <Section className="CreateEvent">
       <h2>Create Event</h2>
-      <EventForm createEvent={props.createEvent} />
+      <EventForm {...props} />
     </Section>
   );
 }
