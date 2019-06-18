@@ -8,9 +8,9 @@ export default function SearchEventForm(props) {
         <label htmlFor="SearchEventForm__event_name">Event Name</label>
         <Input name="event_name" type="text" id="SearchEventForm__event_name" />
       </div>
-      <div className="event_tags">
-        <label htmlFor="SearchEventForm__event_tags">Event Tags</label>
-        <Input name="event_tags" type="text" id="SearchEventForm__event_tags" />
+      <div className="event_type">
+        <label htmlFor="SearchEventForm__event_type">Event Type</label>
+        <Input name="event_type" type="text" id="SearchEventForm__event_type" />
       </div>
       <div className="location">
         <label htmlFor="SearchEventForm__location">Location</label>

@@ -1,13 +1,6 @@
 import React from 'react';
 
-import {
-  useFormInput,
-  Button,
-  Input,
-  Required,
-  Textarea,
-  MyDateFormat,
-} from '../Utils/Utils';
+import {useFormInput, Button, Input, Required, Textarea} from '../Utils/Utils';
 
 export default function EventForm(props) {
   const today = new Date();
@@ -19,15 +12,15 @@ export default function EventForm(props) {
     ('0' + today.getDate()).slice(-2);
 
   const name = useFormInput('');
-  const tags = useFormInput('');
+  const type = useFormInput('');
   const location = useFormInput('');
   const date = useFormInput(`${todaysDate}T12:00`);
   const information = useFormInput('');
   const event = {
     name: name.value,
-    tags: tags.value,
+    type: type.value,
     location: location.value,
-    date: MyDateFormat(new Date(date.value)),
+    date: date.value,
     information: information.value,
   };
 
@@ -53,16 +46,16 @@ export default function EventForm(props) {
           id="EventForm__event_name"
         />
       </div>
-      <div className="event_tags">
-        <label htmlFor="EventForm__event_tags">
-          Event Tags <Required />
+      <div className="event_type">
+        <label htmlFor="EventForm__event_type">
+          Event Type <Required />
         </label>
         <Input
-          name="event_tags"
+          name="event_type"
           type="text"
-          {...tags}
+          {...type}
           required
-          id="EventForm__event_tags"
+          id="EventForm__event_type"
         />
       </div>
       <div className="location">

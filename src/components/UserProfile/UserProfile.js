@@ -14,9 +14,9 @@ export default function UserProfile(props) {
           Full Name: <br />
           <Span> {props.user['full-name']} </Span>
         </Li>
-        <Li key="tags" className="profile_tags">
-          Tags: <br />
-          <Span> {props.user.tags} </Span>
+        <Li key="type" className="profile_type">
+          Type of Interests: <br />
+          <Span> {props.user.type} </Span>
         </Li>
         <Li key="email" className="email">
           email: <br />

@@ -10,29 +10,31 @@ import SearchEventPage from '../../routes/SearchEventPage/SearchEventPage';
 import EventPage from '../../routes/EventPage/EventPage';
 import UserProfilePage from '../../routes/UserProfilePage/UserProfilePage';
 import UpdateProfilePage from '../../routes/UserProfilePage/UpdateProfilePage';
-import {MyDateFormat} from '../Utils/Utils';
 
 import './App.css';
 
 function App(props) {
+  var start = Date.now();
+  console.log(start);
   const newEvent = [
     {
       id: 1,
       owner: 1,
       name: 'Basketball 3v3',
-      tags: 'basketball',
+      type: 'basketball',
       location: '1501 Dave Dixon Dr, New Orleans LA 70113 United States',
-      date: MyDateFormat(new Date()),
+      date: start,
       information:
         'Want eight people total for one sub on each team. Get there 30 minutes early for warmups',
+      attending: [1, 2, 5],
     },
     {
       id: 2,
       owner: 2,
       name: 'Sand Volleyball',
-      tags: 'volleyball',
+      type: 'volleyball',
       location: '123 VolleyBall Lane, Los Angeles, CA 12345 United States',
-      date: MyDateFormat(new Date()),
+      date: start,
       information: 'Looking for 5 people total for some fun in the sun',
       attending: [1, 2, 5],
     },
@@ -42,7 +44,7 @@ function App(props) {
       id: 1,
       name: 'Jake123',
       'full-name': 'Jake Doe',
-      tags: 'baseball, basketball, weight lifting, online gaming',
+      type: 'baseball, basketball, weight lifting, online gaming',
       location: 'New York',
       email: 'jake123@gmail.com',
       'about-me':
@@ -70,7 +72,7 @@ function App(props) {
     newEvents.push({
       id: events.length + 1,
       name: e.name,
-      tags: e.tags,
+      type: e.type,
       location: e.location,
       date: e.date,
       information: e.information,

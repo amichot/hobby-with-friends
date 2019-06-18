@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Button, Li, Span} from '../Utils/Utils';
+import {Button, Li, Span, MyDateFormat} from '../Utils/Utils';
 import {findEvent} from '../EventHelpers/EventHelpers';
 import UsersAttending from './UsersAttending';
 
@@ -11,12 +11,11 @@ export default function Event(props) {
     <React.Fragment>
       <ul className="EventInfo">
         <Li key="name" className="event_name">
-          Event Name: <br />
-          <Span> {getEvent.name} </Span>
+          <h2> {getEvent.name} </h2>
         </Li>
-        <Li key="tags" className="event_tags">
-          Event Tags: <br />
-          <Span> {getEvent.tags} </Span>
+        <Li key="type" className="event_type">
+          Event Type: <br />
+          <Span> {getEvent.type} </Span>
         </Li>
         <Li key="location" className="location">
           Event Location: <br />
@@ -24,7 +23,7 @@ export default function Event(props) {
         </Li>
         <Li key="date" className="date_time">
           Date/Time: <br />
-          <Span> {getEvent.date} </Span>
+          <Span> {MyDateFormat(getEvent.date)} </Span>
         </Li>
         <Li key="information" className="Additional_information">
           Additional Information: <br />

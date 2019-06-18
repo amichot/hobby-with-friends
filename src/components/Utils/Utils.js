@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import {Redirect} from 'react-router-dom';
-import {format as formatDate} from 'date-fns';
 import ReactTable from 'react-table';
 import {ReactTableDefaults} from 'react-table';
 
 import './Utils.css';
 import 'react-table/react-table.css';
 
-//const SelectTable = selectTableHOC(ReactTable);
 
 Object.assign(ReactTableDefaults, {
   defaultPageSize: 5,
@@ -15,20 +13,21 @@ Object.assign(ReactTableDefaults, {
 });
 
 export function MyDateFormat(date) {
+  console.log(new Date(date).toLocaleTimeString());
   let myDate =
-    date
+    new Date(date)
       .toLocaleTimeString()
       .split(' ')[0]
       .split(':')[0] +
     ':' +
-    date
+    new Date(date)
       .toLocaleTimeString()
       .split(' ')[0]
       .split(':')[1] +
     ' ' +
-    date.toLocaleTimeString().split(' ')[1] +
+    new Date(date).toLocaleTimeString().split(' ')[1] +
     ' ' +
-    date.toLocaleDateString();
+    new Date(date).toLocaleDateString();
   return myDate;
 }
 

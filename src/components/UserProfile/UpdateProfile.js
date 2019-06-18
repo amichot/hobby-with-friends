@@ -5,7 +5,7 @@ import {useFormInput, Button, Input, Textarea} from '../Utils/Utils';
 export default function EditProfile(props) {
   const name = useFormInput(props.user.name);
   const fullName = useFormInput(props.user['full-name']);
-  const tags = useFormInput(props.user.tags);
+  const type = useFormInput(props.user.type);
   const location = useFormInput(props.user.location);
   const email = useFormInput(props.user.email);
   const about = useFormInput(props.user['about-me']);
@@ -14,7 +14,7 @@ export default function EditProfile(props) {
     id: props.user.id,
     name: name.value,
     'full-name': fullName.value,
-    tags: tags.value,
+    type: type.value,
     location: location.value,
     email: email.value,
     'about-me': about.value,
@@ -51,14 +51,14 @@ export default function EditProfile(props) {
           id="UserForm__full_name"
         />
       </div>
-      <div className="user_tags">
-        <label htmlFor="UserForm__user_tags">User Tags</label>
+      <div className="user_type">
+        <label htmlFor="UserForm__user_type">Type Interests</label>
         <Input
-          name="user_tags"
+          name="user_type"
           type="text"
-          {...tags}
+          {...type}
           required
-          id="UserForm__user_tags"
+          id="UserForm__user_type"
         />
       </div>
       <div className="location">

@@ -1,14 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import {Table} from '../Utils/Utils';
+import {Table, MyDateFormat} from '../Utils/Utils';
 
 export default function Home(props) {
-  props.events.forEach(e => {
-    e['name'] = <Link to={`/event/${e['id']}`}>{e['name']}</Link>;
-  });
-
   const data = props.events;
+
+  data.forEach(e => {
+    e['name'] = <Link to={`/event/${e['id']}`}>{e['name']}</Link>;
+    e['date'] = MyDateFormat(e['date']);
+  });
 
   const columns = [
     {
