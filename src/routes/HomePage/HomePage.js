@@ -6,7 +6,7 @@ export default function LoginPage(props) {
   return (
     <Section className="HomePage">
       <h2>Home Page</h2>
-      <Home events={props.events} />
+      <Home {...props} />
     </Section>
   );
 }

@@ -5,6 +5,7 @@ import {Table, MyDateFormat} from '../Utils/Utils';
 
 export default function Home(props) {
   const data = props.events;
+  console.log(data);
 
   data.forEach(e => {
     e['name'] = <Link to={`/event/${e['id']}`}>{e['name']}</Link>;

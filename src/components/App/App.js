@@ -11,6 +11,11 @@ import EventPage from '../../routes/EventPage/EventPage';
 import UserProfilePage from '../../routes/UserProfilePage/UserProfilePage';
 import UpdateProfilePage from '../../routes/UserProfilePage/UpdateProfilePage';
 
+import EventApiService from '../services/event-api-service';
+
+import PrivateRoute from '../Utils/PrivateRoute';
+import PublicOnlyRoute from '../Utils/PublicOnlyRoute';
+
 import './App.css';
 
 function App(props) {
@@ -97,16 +102,22 @@ function App(props) {
       <main className="main">
         {
           <Switch>
-            <Route path="/login" component={LoginPage} />
-            <Route path="/register" component={RegistrationPage} />
-            <Route
+            <PublicOnlyRoute
+              path="/login"
+              render={routeProps => <LoginPage {...routeProps} />}
+            />
+            <PublicOnlyRoute
+              path="/register"
+              render={routeProps => <RegistrationPage {...routeProps} />}
+            />
+            <PrivateRoute
               exact
               path="/"
               render={routeProps => (
                 <HomePage {...routeProps} events={events} />
               )}
             />
-            <Route
+            <PrivateRoute
               path="/create"
               render={routeProps => (
                 <CreateEventPage
@@ -115,25 +126,25 @@ function App(props) {
                 />
               )}
             />
-            <Route
+            <PrivateRoute
               path="/search"
               render={routeProps => (
                 <SearchEventPage {...routeProps} events={events} />
               )}
             />
-            <Route
+            <PrivateRoute
               path="/event/:eventid"
               render={routeProps => (
                 <EventPage {...routeProps} events={events} users={users} />
               )}
             />
-            <Route
+            <PrivateRoute
               path="/profile"
               render={routeProps => (
                 <UserProfilePage {...routeProps} user={users[0]} />
               )}
             />
-            <Route
+            <PrivateRoute
               path="/update-profile"
               render={routeProps => (
                 <UpdateProfilePage

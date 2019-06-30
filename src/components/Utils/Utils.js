@@ -6,7 +6,6 @@ import {ReactTableDefaults} from 'react-table';
 import './Utils.css';
 import 'react-table/react-table.css';
 
-
 Object.assign(ReactTableDefaults, {
   defaultPageSize: 5,
   minRows: 3,

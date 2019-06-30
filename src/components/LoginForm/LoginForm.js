@@ -1,9 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
+
+import AuthApiService from '../services/auth-api-service';
+import TokenService from '../services/token-service';
 import {Button, Input} from '../Utils/Utils';
 
 export default function LoginForm(props) {
+  const [error, setError] = useState(null);
+
+  function updateError(e) {
+    return setError(e);
+  }
+
+  const handleSubmitJwtAuth = ev => {
+    ev.preventDefault();
+    const {user_name, password} = ev.target;
+
+    AuthApiService.postLogin({
+      user_name: user_name.value,
+      password: password.value,
+    })
+      .then(res => {
+        user_name.value = '';
+        password.value = '';
+        TokenService.saveAuthToken(res.authToken);
+        props.onLoginSuccess();
+      })
+      .catch(res => {
+        updateError(res.error);
+      });
+  };
   return (
-    <form className="LoginForm">
+    <form className="LoginForm" onSubmit={handleSubmitJwtAuth}>
+      <div role="alert">{error && <p className="red">{error}</p>}</div>
       <div className="user_name">
         <label htmlFor="LoginForm__user_name">User name</label>
         <Input required name="user_name" id="LoginForm__user_name" />

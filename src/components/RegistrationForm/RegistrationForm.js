@@ -1,9 +1,41 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, Input, Required} from '../Utils/Utils';
+import AuthApiService from '../services/auth-api-service';
 
 export default function RegistrationForm(props) {
+  const [error, setError] = useState(null);
+
+  function updateError(e) {
+    return setError(e);
+  }
+
+  const handleSubmit = ev => {
+    ev.preventDefault();
+    const {full_name, user_name, email, password} = ev.target;
+
+    console.log('registration form submitted');
+    console.log({full_name, user_name, email, password});
+    AuthApiService.postUser({
+      full_name: full_name.value,
+      user_name: user_name.value,
+      email: email.value,
+      password: password.value,
+    })
+      .then(user => {
+        full_name.value = '';
+        user_name.value = '';
+        email.value = '';
+        password.value = '';
+        props.onRegistrationSuccess();
+      })
+      .catch(res => {
+        updateError(res.error);
+      });
+  };
+
   return (
-    <form className="RegistrationForm">
+    <form className="RegistrationForm" onSubmit={handleSubmit}>
+      <div role="alert">{error && <p className="red">{error}</p>}</div>
       <div className="full_name">
         <label htmlFor="RegistrationForm__full_name">
           Full name <Required />
@@ -13,17 +45,6 @@ export default function RegistrationForm(props) {
           type="text"
           required
           id="RegistrationForm__full_name"
-        />
-      </div>
-      <div className="email">
-        <label htmlFor="RegistrationForm__email">
-          Email <Required />
-        </label>
-        <Input
-          name="email"
-          type="email"
-          required
-          id="RegistrationForm__email"
         />
       </div>
       <div className="user_name">
@@ -37,6 +58,17 @@ export default function RegistrationForm(props) {
           id="RegistrationForm__user_name"
         />
       </div>
+      <div className="email">
+        <label htmlFor="RegistrationForm__email">
+          Email <Required />
+        </label>
+        <Input
+          name="email"
+          type="email"
+          required
+          id="RegistrationForm__email"
+        />
+      </div>
       <div className="password">
         <label htmlFor="RegistrationForm__password">
           Password <Required />
@@ -46,17 +78,6 @@ export default function RegistrationForm(props) {
           type="password"
           required
           id="RegistrationForm__password"
-        />
-      </div>
-      <div className="repeat_password">
-        <label htmlFor="RegistrationForm__repeat__password">
-          Repeat Password <Required />
-        </label>
-        <Input
-          name="repeat_password"
-          type="password"
-          required
-          id="RegistrationForm__repeat__password"
         />
       </div>
       <Button type="submit">Register</Button>

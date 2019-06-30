@@ -5,10 +5,17 @@ import {Section, Span} from '../../components/Utils/Utils';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 
 export default function RegistrationPage(props) {
+  const handleRegistrationSuccess = user => {
+    props.history.push('/login');
+  };
+
   return (
     <Section className="RegistrationPage">
       <h2>Register</h2>
-      <RegistrationForm />
+      <RegistrationForm
+        onRegistrationSuccess={handleRegistrationSuccess}
+        {...props}
+      />
       <p>
         Have an account?{' '}
         <Span>
