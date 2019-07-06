@@ -6,7 +6,7 @@ import {Section, Span} from '../../components/Utils/Utils';
 
 export default function LoginPage(props) {
   const handleLoginSuccess = () => {
-    const destination = (props.location.state || {}).from || '/';
+    const destination = (props.location.path || {}).from || '/home';
     props.history.push(destination);
   };
 

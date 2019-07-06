@@ -1,0 +1,17 @@
+{
+  "parserOptions": {
+    "jsx": true,
+    "useJSXTextNode": true
+  },
+  "plugins": ["react-hooks"],
+  "extends": [
+    "prettier",
+    "react-app"
+  ],
+  "rules": {
+    "import/first": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+  
+}

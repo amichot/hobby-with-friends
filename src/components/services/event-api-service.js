@@ -2,15 +2,13 @@ import TokenService from '../services/token-service';
 import config from '../config';
 
 const EventApiService = {
-  getAllEvents() {
+  getEvents() {
     return fetch(`${config.API_ENDPOINT}/event`, {
       headers: {authorization: `bearer ${TokenService.getAuthToken()}`},
-    }).then(res =>
-      !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
-    );
+    });
   },
-  getItem(route, id) {
-    return fetch(`${config.API_ENDPOINT}/${route}/${id}`, {
+  getEvent(id) {
+    return fetch(`${config.API_ENDPOINT}/event/id/${id}`, {
       headers: {authorization: `bearer ${TokenService.getAuthToken()}`},
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
@@ -30,8 +28,8 @@ const EventApiService = {
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
-  deleteItem(route, eventId) {
-    return fetch(`${config.API_ENDPOINT}/${route}`, {
+  deleteEvent(eventId) {
+    return fetch(`${config.API_ENDPOINT}/event/id/:${eventId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
@@ -44,8 +42,8 @@ const EventApiService = {
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
-  patchItem(route, eventId, text) {
-    return fetch(`${config.API_ENDPOINT}/${route}`, {
+  patchEvent(eventId, text) {
+    return fetch(`${config.API_ENDPOINT}/event/id/:${eventId}`, {
       method: 'PATCH',
       headers: {
         'content-type': 'application/json',

@@ -1,39 +1,43 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Button, Li, Span, MyDateFormat} from '../Utils/Utils';
-import {findEvent} from '../EventHelpers/EventHelpers';
-import UsersAttending from './UsersAttending';
+import {findEvent} from './utilities';
 
-export default function Event(props) {
-  const getEvent = findEvent(props.events, props.match.params);
+export default function Event({events = [], match: {params}}) {
+  console.log('render Event');
+  const [event, setEvent] = useState({});
+
+  useEffect(() => {
+    setEvent(findEvent(events, params.eventid));
+  }, [events, params.eventid]);
 
   return (
     <React.Fragment>
       <ul className="EventInfo">
         <Li key="name" className="event_name">
-          <h2> {getEvent.name} </h2>
+          <h2> {event.name} </h2>
         </Li>
         <Li key="type" className="event_type">
           Event Type: <br />
-          <Span> {getEvent.type} </Span>
+          <Span> {event.type} </Span>
         </Li>
         <Li key="location" className="location">
           Event Location: <br />
-          <Span>{getEvent.location}</Span>
+          <Span>{event.location}</Span>
         </Li>
         <Li key="date" className="date_time">
           Date/Time: <br />
-          <Span> {MyDateFormat(getEvent.date)} </Span>
+          <Span> {MyDateFormat(event.date)} </Span>
         </Li>
         <Li key="information" className="Additional_information">
           Additional Information: <br />
-          <Span>{getEvent.information}</Span>
+          <Span>{event.information}</Span>
         </Li>
 
-        <Button type="submit">Join Event</Button>
+        <Button type="button">Join Event</Button>
       </ul>
       <h3>Attending Users</h3>
-      <UsersAttending users={props.users} />
     </React.Fragment>
   );
 }
+/* <UsersAttending users={props.users} /> */

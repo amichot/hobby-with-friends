@@ -11,18 +11,18 @@ export default function RegistrationForm(props) {
 
   const handleSubmit = ev => {
     ev.preventDefault();
-    const {full_name, user_name, email, password} = ev.target;
+    const {profile_name, user_name, email, password} = ev.target;
 
     console.log('registration form submitted');
-    console.log({full_name, user_name, email, password});
+    console.log({profile_name, user_name, email, password});
     AuthApiService.postUser({
-      full_name: full_name.value,
-      user_name: user_name.value,
+      profile_name: profile_name.value,
+      name: user_name.value,
       email: email.value,
       password: password.value,
     })
       .then(user => {
-        full_name.value = '';
+        profile_name.value = '';
         user_name.value = '';
         email.value = '';
         password.value = '';
@@ -36,15 +36,15 @@ export default function RegistrationForm(props) {
   return (
     <form className="RegistrationForm" onSubmit={handleSubmit}>
       <div role="alert">{error && <p className="red">{error}</p>}</div>
-      <div className="full_name">
-        <label htmlFor="RegistrationForm__full_name">
-          Full name <Required />
+      <div className="profile_name">
+        <label htmlFor="RegistrationForm__profile_name">
+          Profile Name <Required />
         </label>
         <Input
-          name="full_name"
+          name="profile_name"
           type="text"
           required
-          id="RegistrationForm__full_name"
+          id="RegistrationForm__profile_name"
         />
       </div>
       <div className="user_name">

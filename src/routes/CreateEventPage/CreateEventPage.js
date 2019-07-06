@@ -1,6 +1,6 @@
 import React from 'react';
 import {Section} from '../../components/Utils/Utils';
-import EventForm from '../../components/EventForm/EventForm';
+import EventForm from '../../components/Event/EventForm';
 
 export default function CreateEvent(props) {
   console.log(props);

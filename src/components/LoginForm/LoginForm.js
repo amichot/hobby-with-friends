@@ -1,28 +1,27 @@
 import React, {useState} from 'react';
 
 import AuthApiService from '../services/auth-api-service';
-import TokenService from '../services/token-service';
 import {Button, Input} from '../Utils/Utils';
 
 export default function LoginForm(props) {
   const [error, setError] = useState(null);
-
   function updateError(e) {
     return setError(e);
   }
 
   const handleSubmitJwtAuth = ev => {
     ev.preventDefault();
-    const {user_name, password} = ev.target;
+    const {name, password} = ev.target;
 
     AuthApiService.postLogin({
-      user_name: user_name.value,
+      name: name.value,
       password: password.value,
     })
       .then(res => {
-        user_name.value = '';
+        name.value = '';
         password.value = '';
-        TokenService.saveAuthToken(res.authToken);
+        const storageHolder = {TOKEN_KEY: res.authToken, USER_ID: res.id};
+        localStorage.setItem('config', JSON.stringify(storageHolder));
         props.onLoginSuccess();
       })
       .catch(res => {
@@ -32,9 +31,9 @@ export default function LoginForm(props) {
   return (
     <form className="LoginForm" onSubmit={handleSubmitJwtAuth}>
       <div role="alert">{error && <p className="red">{error}</p>}</div>
-      <div className="user_name">
-        <label htmlFor="LoginForm__user_name">User name</label>
-        <Input required name="user_name" id="LoginForm__user_name" />
+      <div className="name">
+        <label htmlFor="LoginForm__name">User name</label>
+        <Input required name="name" id="LoginForm__name" />
       </div>
       <div className="password">
         <label htmlFor="LoginForm__password">Password</label>

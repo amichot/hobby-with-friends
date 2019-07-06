@@ -1,19 +1,23 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
 import TokenService from '../services/token-service';
-import LoginPage from '../../routes/LoginPage/LoginPage';
 
-export default function PrivateRoute(props) {
-  console.log(props);
-
+export default function PrivateRoute({render, ...props}) {
+  console.log('render private route');
+  const Component = render;
   return (
     <Route
       {...props}
       render={componentProps =>
         TokenService.hasAuthToken() ? (
-          <Redirect to={'/'} />
+          <Component {...componentProps} />
         ) : (
-          <LoginPage {...componentProps} />
+          <Redirect
+            to={{
+              pathname: '/login',
+              state: {from: componentProps.location},
+            }}
+          />
         )
       }
     />

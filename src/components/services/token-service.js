@@ -1,17 +1,20 @@
-import config from '../config';
-
 const TokenService = {
-  saveAuthToken(token) {
-    window.localStorage.setItem(config.TOKEN_KEY, token);
-  },
   getAuthToken() {
-    return window.localStorage.getItem(config.TOKEN_KEY);
+    let storage = localStorage.getItem('config');
+    storage = JSON.parse(storage);
+    return storage.TOKEN_KEY;
+  },
+  getUserId() {
+    let storage = localStorage.getItem('config');
+    storage = JSON.parse(storage);
+    return storage.USER_ID;
   },
   clearAuthToken() {
-    window.localStorage.removeItem(config.TOKEN_KEY);
+    window.localStorage.removeItem('config');
   },
   hasAuthToken() {
-    return !!TokenService.getAuthToken();
+    console.log('logged in? ', !!localStorage['config']);
+    return !!localStorage['config'];
   },
   makeBasicAuthToken(userName, password) {
     return window.btoa(`${userName}:${password}`);

@@ -12,7 +12,6 @@ Object.assign(ReactTableDefaults, {
 });
 
 export function MyDateFormat(date) {
-  console.log(new Date(date).toLocaleTimeString());
   let myDate =
     new Date(date)
       .toLocaleTimeString()
@@ -74,7 +73,6 @@ export function Section({className, list, ...props}) {
   return <section className={classes} {...props} />;
 }
 export function test(e) {
-  console.log('test ran', e);
   return <Redirect push to="/create" />;
 }
 
