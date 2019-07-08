@@ -1,15 +1,60 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 
 import {Button, Li, Span, MyDateFormat} from '../Utils/Utils';
-import {findEvent} from './utilities';
+import {findEvent, validateUser} from './utilities';
+import UserApiService from '../services/user-api-service';
 
-export default function Event({events = [], match: {params}}) {
+import UsersAttending from './UsersAttending';
+
+export default function Event({events = [], match: {params}, user = {}}) {
   console.log('render Event');
   const [event, setEvent] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [attendingEvent, setAttendingEvent] = useState([]);
 
   useEffect(() => {
-    setEvent(findEvent(events, params.eventid));
+    const eventFinder = async () => {
+      const response = await findEvent(events, params.eventid);
+      setEvent(response);
+    };
+    eventFinder();
   }, [events, params.eventid]);
+
+  useEffect(() => {
+    const getAllAttendingEvent = async () => {
+      console.log('id', event.id);
+      const response = await UserApiService.getEventUsers(event.id);
+      const data = await response.json();
+      console.log('data', data);
+      setAttendingEvent(data);
+
+      setLoading(false);
+    };
+    if (event.id) {
+      getAllAttendingEvent();
+    }
+  }, [event]);
+
+  const deleteUserAttending = useCallback(
+    idToDelete => {
+      const validate = validateUser(attendingEvent, user);
+      if (validate) {
+        UserApiService.deleteEventUser(params.eventid, idToDelete)
+          .then(noContent => {
+            const newAttendingEvent = attendingEvent.filter(
+              ae => ae.user_id !== idToDelete
+            );
+            setAttendingEvent(newAttendingEvent);
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      } else {
+        return 'You are not the owner of this event';
+      }
+    },
+    [attendingEvent, params.eventid, user]
+  );
 
   return (
     <React.Fragment>
@@ -37,6 +82,14 @@ export default function Event({events = [], match: {params}}) {
         <Button type="button">Join Event</Button>
       </ul>
       <h3>Attending Users</h3>
+      {loading ? (
+        <p className="red">loading...</p>
+      ) : (
+        <UsersAttending
+          attendingEvent={attendingEvent}
+          deleteUserAttending={deleteUserAttending}
+        />
+      )}
     </React.Fragment>
   );
 }

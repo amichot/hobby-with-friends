@@ -35,8 +35,8 @@ export default function Home() {
 
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(testUsers);
   const [eventsHolder, setEventsHolder] = useState([]);
+  const [user, setUser] = useState(testUsers);
 
   function updateUsers(e) {
     return setUser(e);
@@ -128,7 +128,7 @@ export default function Home() {
         <PrivateRoute
           path="/event/:eventid"
           render={routeProps => (
-            <EventPage {...routeProps} events={events} users={user} />
+            <EventPage {...routeProps} events={events} user={user} />
           )}
         />
         <PrivateRoute

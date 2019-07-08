@@ -3,7 +3,6 @@ import config from '../config';
 
 const UserApiService = {
   getUser() {
-    console.log(config);
     return fetch(`${config.API_ENDPOINT}/user/${TokenService.getUserId()}`, {
       headers: {authorization: `bearer ${TokenService.getAuthToken()}`},
     });
@@ -23,6 +22,7 @@ const UserApiService = {
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
+  // USERS ATTENDING EVENT
   getEventUsers(eventId) {
     return fetch(`${config.API_ENDPOINT}/event-users/${eventId}`, {
       headers: {authorization: `bearer ${TokenService.getAuthToken()}`},
@@ -43,19 +43,17 @@ const UserApiService = {
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
-  deleteEventUser(eventId) {
+  deleteEventUser(eventId, attendingUserId) {
+    const eventUsers = UserApiService.getEventUsers(eventId);
+    console.log(eventUsers);
     return fetch(
-      `${config.API_ENDPOINT}/event-users/:${eventId}/:${config.USER_ID}`,
+      `${config.API_ENDPOINT}/event-users/:${eventId}/:${attendingUserId}`,
       {
         method: 'DELETE',
         headers: {
           'content-type': 'application/json',
           authorization: `bearer ${TokenService.getAuthToken()}`,
         },
-        body: JSON.stringify({
-          event_id: config.USER_ID,
-          user_id: config.USER_ID,
-        }),
       }
     ).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
