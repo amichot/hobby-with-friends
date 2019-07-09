@@ -2,22 +2,23 @@ import React from 'react';
 import {Button, Ul, Li, Span} from '../Utils/Utils';
 
 export default function Event({
-  attendingEvent = [],
-  deleteUserAttending = () => {},
+  eventAttendees = [],
+  deleteAttendee = () => {},
+  addAttendee = () => {},
 }) {
-  let users = attendingEvent;
+  let users = eventAttendees;
   console.log(users);
   let getUsers = users.map(user => {
     return (
       <Li key={user.user_id}>
         <Span className="user">{user.user_name}</Span>{' '}
         <Button
-          className="kick"
+          className="remove_user_button"
           type="button"
           value={user.user_id}
           onClick={e => {
             e.preventDefault();
-            deleteUserAttending(e.currentTarget.value);
+            deleteAttendee(e.currentTarget.value);
           }}
         >
           remove
@@ -25,5 +26,19 @@ export default function Event({
       </Li>
     );
   });
-  return <Ul className="EventInfo">{getUsers}</Ul>;
+  return (
+    <React.Fragment>
+      <Ul className="EventInfo">{getUsers}</Ul>
+      <Button
+        type="button"
+        className="join_button"
+        onClick={e => {
+          e.preventDefault();
+          addAttendee();
+        }}
+      >
+        Join Event
+      </Button>
+    </React.Fragment>
+  );
 }

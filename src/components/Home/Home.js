@@ -126,7 +126,7 @@ export default function Home() {
           )}
         />
         <PrivateRoute
-          path="/event/:eventid"
+          path="/event/:eventId"
           render={routeProps => (
             <EventPage {...routeProps} events={events} user={user} />
           )}

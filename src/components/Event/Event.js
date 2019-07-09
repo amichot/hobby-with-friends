@@ -1,7 +1,11 @@
 import React, {useEffect, useState, useCallback} from 'react';
 
-import {Button, Li, Span, MyDateFormat} from '../Utils/Utils';
-import {findEvent, validateUser} from './utilities';
+import {Li, Span, MyDateFormat} from '../Utils/Utils';
+import {
+  findEvent,
+  validateUserIsOwner,
+  validateUserNotAttending,
+} from './utilities';
 import UserApiService from '../services/user-api-service';
 
 import UsersAttending from './UsersAttending';
@@ -10,51 +14,90 @@ export default function Event({events = [], match: {params}, user = {}}) {
   console.log('render Event');
   const [event, setEvent] = useState({});
   const [loading, setLoading] = useState(true);
-  const [attendingEvent, setAttendingEvent] = useState([]);
+  const [eventAttendees, setEventAttendees] = useState([]);
+  const [error, setError] = useState('');
+
+  const clearError = () => setError('');
 
   useEffect(() => {
     const eventFinder = async () => {
-      const response = await findEvent(events, params.eventid);
+      const response = await findEvent(events, params.eventId);
       setEvent(response);
     };
     eventFinder();
-  }, [events, params.eventid]);
+  }, [events, params.eventId]);
 
   useEffect(() => {
-    const getAllAttendingEvent = async () => {
+    const getAllEventAttendees = async () => {
       console.log('id', event.id);
       const response = await UserApiService.getEventUsers(event.id);
       const data = await response.json();
-      console.log('data', data);
-      setAttendingEvent(data);
+      setEventAttendees(data);
 
       setLoading(false);
     };
     if (event.id) {
-      getAllAttendingEvent();
+      getAllEventAttendees();
     }
   }, [event]);
 
-  const deleteUserAttending = useCallback(
+  const deleteAttendee = useCallback(
     idToDelete => {
-      const validate = validateUser(attendingEvent, user);
+      clearError();
+      console.log('id to delete', idToDelete);
+      const validate = validateUserIsOwner(eventAttendees, user);
+      console.log('true or false', validate);
+
       if (validate) {
-        UserApiService.deleteEventUser(params.eventid, idToDelete)
+        UserApiService.deleteEventUser(params.eventId, idToDelete)
           .then(noContent => {
-            const newAttendingEvent = attendingEvent.filter(
+            const newEventAttendees = eventAttendees.filter(
               ae => ae.user_id !== idToDelete
             );
-            setAttendingEvent(newAttendingEvent);
+            console.log('remaining attending users', newEventAttendees);
+            setEventAttendees(newEventAttendees);
           })
           .catch(error => {
             console.error(error);
           });
       } else {
-        return 'You are not the owner of this event';
+        setError('You are not the owner of this event');
       }
     },
-    [attendingEvent, params.eventid, user]
+    [eventAttendees, params.eventId, user]
   );
+
+  const addAttendee = useCallback(() => {
+    clearError();
+    console.log(eventAttendees);
+    const handleAddAttendee = (eventId = '', userId = '') => {
+      const newEventUser = {
+        event_id: eventId,
+        user_id: userId,
+        role_id: 2,
+      };
+
+      setEventAttendees(eventAttendees => {
+        return [...eventAttendees, newEventUser];
+      });
+    };
+    console.log('id to join event', user.id);
+    const validate = validateUserNotAttending(eventAttendees, user.id);
+    console.log('true or false', validate);
+
+    if (validate) {
+      UserApiService.postEventUser(params.eventId, user.id)
+        .then(noContent => {
+          console.log(params.eventId, user.id);
+          handleAddAttendee(params.eventId, user.id);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } else {
+      setError('You have already joined this event');
+    }
+  }, [eventAttendees, params.eventId, user]);
 
   return (
     <React.Fragment>
@@ -78,18 +121,18 @@ export default function Event({events = [], match: {params}, user = {}}) {
           Additional Information: <br />
           <Span>{event.information}</Span>
         </Li>
-
-        <Button type="button">Join Event</Button>
       </ul>
       <h3>Attending Users</h3>
       {loading ? (
-        <p className="red">loading...</p>
+        <p className="blue">loading...</p>
       ) : (
         <UsersAttending
-          attendingEvent={attendingEvent}
-          deleteUserAttending={deleteUserAttending}
+          eventAttendees={eventAttendees}
+          deleteAttendee={deleteAttendee}
+          addAttendee={addAttendee}
         />
       )}
+      {error ? <p>${error}</p> : <p />}
     </React.Fragment>
   );
 }

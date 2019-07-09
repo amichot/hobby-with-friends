@@ -29,7 +29,7 @@ const UserApiService = {
     });
   },
 
-  postEventUser(text) {
+  postEventUser(eventId, userId) {
     return fetch(`${config.API_ENDPOINT}/event-users`, {
       method: 'POST',
       headers: {
@@ -37,7 +37,9 @@ const UserApiService = {
         authorization: `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
-        text,
+        event_id: eventId,
+        user_id: userId,
+        role_id: 2,
       }),
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
@@ -47,7 +49,7 @@ const UserApiService = {
     const eventUsers = UserApiService.getEventUsers(eventId);
     console.log(eventUsers);
     return fetch(
-      `${config.API_ENDPOINT}/event-users/:${eventId}/:${attendingUserId}`,
+      `${config.API_ENDPOINT}/event-users/${eventId}/${attendingUserId}`,
       {
         method: 'DELETE',
         headers: {
