@@ -1,5 +1,6 @@
 import React, {Suspense, lazy, useEffect, useState, useCallback} from 'react';
-import {Link, Switch} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
+import {HashLink as Link} from 'react-router-hash-link';
 
 import UserApiService from '../services/user-api-service';
 import EventApiService from '../services/event-api-service';
@@ -28,6 +29,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [eventsHolder, setEventsHolder] = useState([]);
   const [user, setUser] = useState({});
+  const [error, setError] = useState({});
+  console.log(user);
 
   const handleAddEvent = useCallback(
     event => {
@@ -79,7 +82,7 @@ export default function Home() {
         data.map(event => {
           return {
             ...event,
-            name: <Link to={`/event/${event.id}`}>{event.name}</Link>,
+            name: <Link to={`/event/${event.id}#event`}>{event.name}</Link>,
             date: MyDateFormat(event.date),
           };
         })
@@ -91,14 +94,16 @@ export default function Home() {
   }, [events]);
 
   useEffect(() => {
+    setLoading(true);
     const getUserInfo = async () => {
       const response = await UserApiService.getUser();
-      const data = await response.ok;
+      const data = await response.json();
       console.log('user', data);
-
       setUser(data);
     };
+
     getUserInfo();
+    setLoading(false);
   }, []);
 
   const handleUpdateUser = useCallback(
@@ -113,10 +118,11 @@ export default function Home() {
         about_me: newUser.about_me,
       };
       const patchUserData = async () => {
+        setError({});
         const response = await UserApiService.patchUser(newUserData);
-        const data = await response;
+        const data = await response.ok;
         console.log('newUser data', data);
-        setUser(newUserData);
+        !!data ? setUser(newUserData) : setError(data);
       };
       patchUserData(newUserData);
     },
@@ -171,6 +177,7 @@ export default function Home() {
                 {...routeProps}
                 user={user}
                 updateUser={handleUpdateUser}
+                error={error}
               />
             )}
           />

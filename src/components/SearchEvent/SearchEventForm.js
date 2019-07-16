@@ -57,7 +57,7 @@ export default function SearchEventForm(props) {
           submitSearch();
         }}
       >
-        <div className="event_name">
+        <div className="event_name" id="focus">
           <label htmlFor="SearchEventForm__event_name">Event Name</label>
           <Input
             name="event_name"

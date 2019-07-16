@@ -35,7 +35,7 @@ export default function EventForm(props) {
         return props.history.push('/');
       }}
     >
-      <div className="event_name">
+      <div className="event_name" id="focus">
         <label htmlFor="EventForm__event_name">
           Event Name <Required />
         </label>

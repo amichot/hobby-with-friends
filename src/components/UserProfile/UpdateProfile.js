@@ -2,7 +2,12 @@ import React from 'react';
 
 import {useFormInput, Button, Input, Textarea} from '../Utils/Utils';
 
-export default function EditProfile({user = {}, ...props}) {
+export default function EditProfile({
+  user = {},
+  updateUser = () => {},
+  error = {},
+  ...props
+}) {
   const userData = {...user};
   const profile_name = useFormInput(userData.profile_name);
   const type = useFormInput(userData.type);
@@ -25,17 +30,18 @@ export default function EditProfile({user = {}, ...props}) {
       action="#"
       onSubmit={e => {
         e.preventDefault();
-        props.updateUser(newUser);
+        updateUser(newUser);
         return props.history.push('/profile');
       }}
     >
-      <div className="profile_name">
+      <div className="profile_name" id="focus">
         <label htmlFor="UserForm__profile_name">Profile Name</label>
         <Input
           name="profile_name"
           type="text"
           {...profile_name}
           id="UserForm__user_name"
+          required
         />
       </div>
       <div className="user_type">
@@ -58,7 +64,13 @@ export default function EditProfile({user = {}, ...props}) {
       </div>
       <div className="email">
         <label htmlFor="UserForm__email">Email</label>
-        <Input name="email" type="email" {...email} id="UserForm__email" />
+        <Input
+          name="email"
+          type="email"
+          {...email}
+          id="UserForm__email"
+          required
+        />
       </div>
       <div className="About_me">
         <label htmlFor="UserForm__About_me">About Me</label>

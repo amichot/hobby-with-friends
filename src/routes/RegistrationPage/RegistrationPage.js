@@ -11,7 +11,7 @@ export default function RegistrationPage(props) {
 
   return (
     <Section className="RegistrationPage">
-      <h2>Register</h2>
+      <h2 id="focus">Register</h2>
       <RegistrationForm
         onRegistrationSuccess={handleRegistrationSuccess}
         {...props}

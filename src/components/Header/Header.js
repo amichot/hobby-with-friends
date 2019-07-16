@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {HashLink as Link} from 'react-router-hash-link';
 import TokenService from '../services/token-service';
 import './Header.css';
 
@@ -22,17 +22,17 @@ export default class Header extends Component {
             </Link>
           </li>
           <li>
-            <Link className="scroll" to="/create">
+            <Link className="scroll" to="/create#focus">
               <span>Create Event</span>
             </Link>
           </li>
           <li>
-            <Link className="scroll" to="/search">
+            <Link className="scroll" to="/search#focus">
               <span>Search Events</span>
             </Link>
           </li>
           <li>
-            <Link className="scroll" to="/profile">
+            <Link className="scroll" to="/profile#focus">
               <span>Profile</span>
             </Link>
           </li>

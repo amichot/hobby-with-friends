@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {HashLink as Link} from 'react-router-hash-link';
 
 import LoginForm from '../../components/LoginForm/LoginForm';
 import {Section, Span} from '../../components/Utils/Utils';
@@ -17,7 +17,7 @@ export default function LoginPage(props) {
       <p>
         Don't have an account?{' '}
         <Span>
-          <Link to="/register">Sign Up</Link>
+          <Link to="/register#focus">Sign Up</Link>
         </Span>
       </p>
     </Section>

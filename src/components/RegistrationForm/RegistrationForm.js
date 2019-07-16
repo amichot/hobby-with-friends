@@ -3,14 +3,12 @@ import {Button, Input, Required} from '../Utils/Utils';
 import AuthApiService from '../services/auth-api-service';
 
 export default function RegistrationForm(props) {
-  const [error, setError] = useState(null);
-
-  function updateError(e) {
-    return setError(e);
-  }
+  const [alert, setAlert] = useState('');
+  console.log(alert);
 
   const handleSubmit = ev => {
     ev.preventDefault();
+    setAlert('');
     const {profile_name, user_name, email, password} = ev.target;
 
     console.log('registration form submitted');
@@ -29,13 +27,27 @@ export default function RegistrationForm(props) {
         props.onRegistrationSuccess();
       })
       .catch(res => {
-        updateError(res.error);
+        !!res.error
+          ? !!res.error.detail
+            ? setAlert(res.error.detail)
+            : setAlert(res.error)
+          : setAlert('You have successfully registered!');
       });
   };
 
   return (
     <form className="RegistrationForm" onSubmit={handleSubmit}>
-      <div role="alert">{error && <p className="red">{error}</p>}</div>
+      <div role="alert">
+        {!!alert ? (
+          alert === 'You have successfully registered!' ? (
+            <p className="green">{alert}</p>
+          ) : (
+            <p className="red">{alert}</p>
+          )
+        ) : (
+          <p />
+        )}
+      </div>
       <div className="profile_name">
         <label htmlFor="RegistrationForm__profile_name">
           Profile Name <Required />

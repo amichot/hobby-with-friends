@@ -1,12 +1,12 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {HashLink as Link} from 'react-router-hash-link';
 import {Button, Li, Span} from '../Utils/Utils';
 
 export default function UserProfile({user = {}}) {
   return (
     <React.Fragment>
       <ul className="ProfileInfo">
-        <Li key="profile_name" className="profile_user_name">
+        <Li key="profile_name" className="profile_user_name" id="focus">
           Profile Name: <br />
           <Span> {user.profile_name} </Span>
         </Li>
@@ -28,7 +28,7 @@ export default function UserProfile({user = {}}) {
         </Li>
       </ul>
       <Button type="button">
-        <Link to="/update-profile">Update Profile</Link>
+        <Link to="/update-profile#focus">Update Profile</Link>
       </Button>
     </React.Fragment>
   );

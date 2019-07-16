@@ -110,7 +110,7 @@ function Event({events = [], match: {params}, user = {}}) {
 
   return (
     <React.Fragment>
-      <ul className="EventInfo">
+      <ul className="EventInfo" id="event">
         <Li key="name" className="event_name">
           <h2> {event.name} </h2>
         </Li>
