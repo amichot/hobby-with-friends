@@ -1,34 +1,40 @@
 import React from 'react';
 import {Button, Ul, Li, Span} from '../Utils/Utils';
+import {validateUserIsOwner} from './utilities';
 
-export default function Event({
+function UsersAttending({
+  user = {},
   eventAttendees = [],
   deleteAttendee = () => {},
   addAttendee = () => {},
 }) {
-  let users = eventAttendees;
-  console.log(users);
-  let getUsers = users.map(user => {
+  const validate = validateUserIsOwner(eventAttendees, user.id);
+  let attendees = eventAttendees;
+  let displayAttendees = attendees.map(attendee => {
     return (
-      <Li key={user.user_id}>
-        <Span className="user">{user.user_name}</Span>{' '}
-        <Button
-          className="remove_user_button"
-          type="button"
-          value={user.user_id}
-          onClick={e => {
-            e.preventDefault();
-            deleteAttendee(e.currentTarget.value);
-          }}
-        >
-          remove
-        </Button>
+      <Li key={attendee.user_id}>
+        <Span className="attendee">{attendee.profile_name}</Span>{' '}
+        {validate ? (
+          <Button
+            className="remove_user_button"
+            type="button"
+            value={attendee.user_id}
+            onClick={e => {
+              e.preventDefault();
+              deleteAttendee(e.currentTarget.value);
+            }}
+          >
+            remove
+          </Button>
+        ) : (
+          <Span />
+        )}
       </Li>
     );
   });
   return (
     <React.Fragment>
-      <Ul className="EventInfo">{getUsers}</Ul>
+      <Ul className="EventInfo">{displayAttendees}</Ul>
       <Button
         type="button"
         className="join_button"
@@ -42,3 +48,5 @@ export default function Event({
     </React.Fragment>
   );
 }
+
+export default React.memo(UsersAttending);

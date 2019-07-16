@@ -1,69 +1,65 @@
-import React, {useEffect, useState} from 'react';
+import React, {Suspense, lazy, useEffect, useState, useCallback} from 'react';
 import {Link, Switch} from 'react-router-dom';
-
-import PrivateRoute from '../Utils/PrivateRoute';
-
-import CreateEventPage from '../../routes/CreateEventPage/CreateEventPage';
-import SearchEventPage from '../../routes/SearchEventPage/SearchEventPage';
-import EventPage from '../../routes/EventPage/EventPage';
-import UserProfilePage from '../../routes/UserProfilePage/UserProfilePage';
-import UpdateProfilePage from '../../routes/UserProfilePage/UpdateProfilePage';
 
 import UserApiService from '../services/user-api-service';
 import EventApiService from '../services/event-api-service';
 import {Table, MyDateFormat} from '../Utils/Utils';
 
+const PrivateRoute = lazy(() => import('../Utils/PrivateRoute'));
+const EventPage = lazy(() => import('../../routes/EventPage/EventPage'));
+const CreateEventPage = lazy(() =>
+  import('../../routes/CreateEventPage/CreateEventPage')
+);
+const SearchEventPage = lazy(() =>
+  import('../../routes/SearchEventPage/SearchEventPage')
+);
+const UserProfilePage = lazy(() =>
+  import('../../routes/UserProfilePage/UserProfilePage')
+);
+const UpdateProfilePage = lazy(() =>
+  import('../../routes/UserProfilePage/UpdateProfilePage')
+);
+
 export default function Home() {
   //useCallback for passing prop functions
   console.log('render Home');
 
-  const testUsers = [
-    {
-      id: 1,
-      name: 'testUserClient',
-      'full-name': 'test user',
-      type: 'baseball, basketball, weight lifting, online gaming',
-      location: 'New York',
-      email: 'jake123@gmail.com',
-      'about-me': 'Hello World',
-    },
-    {id: 2, name: 'Sally'},
-    {id: 3, name: 'Bill'},
-    {id: 4, name: 'Carl'},
-    {id: 5, name: 'Bobby'},
-  ];
-
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [eventsHolder, setEventsHolder] = useState([]);
-  const [user, setUser] = useState(testUsers);
+  const [user, setUser] = useState({});
 
-  function updateUsers(e) {
-    return setUser(e);
-  }
-
-  function handleAddEvent(e = {}) {
-    const newEvent = {
-      id: events.length + 1,
-      name: e.name,
-      type: e.type,
-      location: e.location,
-      date: e.date,
-      information: e.information,
-    };
-
-    setEvents(events => {
-      return [...events, newEvent];
-    });
-  }
-
-  function handleUpdateUser(updatedUser = {}) {
-    const newUsers = testUsers.map(user =>
-      user.id === updatedUser.id ? updatedUser : user
-    );
-    updateUsers(newUsers);
-    return newUsers;
-  }
+  const handleAddEvent = useCallback(
+    event => {
+      console.log('new Event', event);
+      const newEvent = {
+        owner_id: user.id,
+        name: event.name,
+        type: event.type,
+        location: event.location,
+        date: event.date,
+        information: event.information,
+      };
+      EventApiService.postEvent(newEvent).then(res =>
+        setEvents(events => {
+          return [
+            ...events,
+            {
+              id: res.id,
+              owner_id: user.id,
+              owner_name: user.profile_name,
+              name: res.name,
+              type: res.type,
+              location: res.location,
+              date: res.date,
+              information: res.information,
+            },
+          ];
+        })
+      );
+    },
+    [user]
+  );
 
   useEffect(() => {
     const getAllEvents = async () => {
@@ -71,6 +67,14 @@ export default function Home() {
       const data = await response.json();
       console.log('data', data);
       setEvents(data);
+      setLoading(false);
+    };
+    getAllEvents();
+  }, []);
+
+  useEffect(() => {
+    const copyEvents = async () => {
+      const data = [...events];
       setEventsHolder(
         data.map(event => {
           return {
@@ -80,21 +84,44 @@ export default function Home() {
           };
         })
       );
-      setLoading(false);
     };
-    getAllEvents();
-  }, []);
+    if (!!events) {
+      copyEvents();
+    }
+  }, [events]);
 
   useEffect(() => {
     const getUserInfo = async () => {
       const response = await UserApiService.getUser();
-      const data = await response.json();
+      const data = await response.ok;
       console.log('user', data);
 
       setUser(data);
     };
     getUserInfo();
   }, []);
+
+  const handleUpdateUser = useCallback(
+    newUser => {
+      console.log('new User Data', newUser);
+      const newUserData = {
+        id: user.id,
+        profile_name: newUser.profile_name,
+        type: newUser.type,
+        location: newUser.location,
+        email: newUser.email,
+        about_me: newUser.about_me,
+      };
+      const patchUserData = async () => {
+        const response = await UserApiService.patchUser(newUserData);
+        const data = await response;
+        console.log('newUser data', data);
+        setUser(newUserData);
+      };
+      patchUserData(newUserData);
+    },
+    [user.id]
+  );
 
   const columns = [
     {
@@ -109,43 +136,46 @@ export default function Home() {
 
   const renderMainRoutes = () => {
     return (
-      <Switch>
-        <PrivateRoute
-          path="/create"
-          render={routeProps => (
-            <CreateEventPage
-              {...routeProps}
-              addEvent={e => handleAddEvent(e)}
-            />
-          )}
-        />
-        <PrivateRoute
-          path="/search"
-          render={routeProps => (
-            <SearchEventPage {...routeProps} events={events} />
-          )}
-        />
-        <PrivateRoute
-          path="/event/:eventId"
-          render={routeProps => (
-            <EventPage {...routeProps} events={events} user={user} />
-          )}
-        />
-        <PrivateRoute
-          path="/profile"
-          render={routeProps => <UserProfilePage {...routeProps} user={user} />}
-        />
-        <PrivateRoute
-          path="/profile"
-          render={routeProps => (
-            <UpdateProfilePage
-              {...routeProps}
-              user={user}
-              updateUser={e => handleUpdateUser(e)}
-            />
-          )}
-        />
-      </Switch>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <PrivateRoute
+            path="/create"
+            render={routeProps => (
+              <CreateEventPage {...routeProps} addEvent={handleAddEvent} />
+            )}
+          />
+          <PrivateRoute
+            path="/search"
+            render={routeProps => (
+              <SearchEventPage {...routeProps} events={events} />
+            )}
+          />
+
+          <PrivateRoute
+            path="/event/:eventId"
+            render={routeProps => (
+              <EventPage {...routeProps} events={events} user={user} />
+            )}
+          />
+
+          <PrivateRoute
+            path="/profile"
+            render={routeProps => (
+              <UserProfilePage {...routeProps} user={user} />
+            )}
+          />
+          <PrivateRoute
+            path="/update-profile"
+            render={routeProps => (
+              <UpdateProfilePage
+                {...routeProps}
+                user={user}
+                updateUser={handleUpdateUser}
+              />
+            )}
+          />
+        </Switch>
+      </Suspense>
     );
   };
 

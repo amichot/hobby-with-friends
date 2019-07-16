@@ -6,10 +6,10 @@ export const findEvent = (events, eventId) => {
   return event || {};
 };
 
-export const validateUserIsOwner = (eventAttendees, user) => {
+export const validateUserIsOwner = (eventAttendees, userId) => {
   let validateUser = false;
   eventAttendees.forEach(e => {
-    if (e.user_id === user.id) {
+    if (e.user_id === userId) {
       validateUser = e.role_id === 1;
     }
   });

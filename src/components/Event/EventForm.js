@@ -20,7 +20,8 @@ export default function EventForm(props) {
     name: name.value,
     type: type.value,
     location: location.value,
-    date: date.value,
+    date:
+      new Date(date.value).getTime() + new Date(date.value).getTimezoneOffset(),
     information: information.value,
   };
 

@@ -2,22 +2,20 @@ import React from 'react';
 
 import {useFormInput, Button, Input, Textarea} from '../Utils/Utils';
 
-export default function EditProfile(props) {
-  const name = useFormInput(props.user.name);
-  const fullName = useFormInput(props.user['full-name']);
-  const type = useFormInput(props.user.type);
-  const location = useFormInput(props.user.location);
-  const email = useFormInput(props.user.email);
-  const about = useFormInput(props.user['about-me']);
+export default function EditProfile({user = {}, ...props}) {
+  const userData = {...user};
+  const profile_name = useFormInput(userData.profile_name);
+  const type = useFormInput(userData.type);
+  const location = useFormInput(userData.location);
+  const email = useFormInput(userData.email);
+  const about = useFormInput(userData.about_me);
 
-  const user = {
-    id: props.user.id,
-    name: name.value,
-    'full-name': fullName.value,
+  const newUser = {
+    profile_name: profile_name.value,
     type: type.value,
     location: location.value,
     email: email.value,
-    'about-me': about.value,
+    about_me: about.value,
   };
   console.log(user);
 
@@ -27,28 +25,17 @@ export default function EditProfile(props) {
       action="#"
       onSubmit={e => {
         e.preventDefault();
-        props.updateUser(user);
+        props.updateUser(newUser);
         return props.history.push('/profile');
       }}
     >
-      <div className="user_name">
-        <label htmlFor="UserForm__user_name">User Name</label>
+      <div className="profile_name">
+        <label htmlFor="UserForm__profile_name">Profile Name</label>
         <Input
-          name="user_name"
+          name="profile_name"
           type="text"
-          {...name}
-          required
+          {...profile_name}
           id="UserForm__user_name"
-        />
-      </div>
-      <div className="full_name">
-        <label htmlFor="UserForm__full_name">Full Name</label>
-        <Input
-          name="full_name"
-          type="text"
-          {...fullName}
-          required
-          id="UserForm__full_name"
         />
       </div>
       <div className="user_type">
@@ -57,7 +44,6 @@ export default function EditProfile(props) {
           name="user_type"
           type="text"
           {...type}
-          required
           id="UserForm__user_type"
         />
       </div>
@@ -66,20 +52,13 @@ export default function EditProfile(props) {
         <Input
           name="location"
           type="text"
-          required
           {...location}
           id="UserForm__location"
         />
       </div>
       <div className="email">
         <label htmlFor="UserForm__email">Email</label>
-        <Input
-          name="email"
-          type="email"
-          {...email}
-          required
-          id="UserForm__email"
-        />
+        <Input name="email" type="email" {...email} id="UserForm__email" />
       </div>
       <div className="About_me">
         <label htmlFor="UserForm__About_me">About Me</label>

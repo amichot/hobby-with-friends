@@ -5,8 +5,9 @@ import {Table, MyDateFormat} from '../Utils/Utils';
 
 import 'react-table/react-table.css';
 
-export default function SearchEventResults(props) {
-  const data = props.events;
+export default function SearchEventResults({events = []}) {
+  console.log(events);
+  const data = [...events];
 
   data.forEach(e => {
     e['name'] = <Link to={`/event/${e['id']}`}>{e['name']}</Link>;

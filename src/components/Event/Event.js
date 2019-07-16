@@ -10,12 +10,14 @@ import UserApiService from '../services/user-api-service';
 
 import UsersAttending from './UsersAttending';
 
-export default function Event({events = [], match: {params}, user = {}}) {
+function Event({events = [], match: {params}, user = {}}) {
   console.log('render Event');
+  console.log(user);
   const [event, setEvent] = useState({});
   const [loading, setLoading] = useState(true);
   const [eventAttendees, setEventAttendees] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState(null);
+  console.log('eventAttendees', eventAttendees);
 
   const clearError = () => setError('');
 
@@ -24,7 +26,9 @@ export default function Event({events = [], match: {params}, user = {}}) {
       const response = await findEvent(events, params.eventId);
       setEvent(response);
     };
-    eventFinder();
+    if (!!events) {
+      eventFinder();
+    }
   }, [events, params.eventId]);
 
   useEffect(() => {
@@ -45,7 +49,7 @@ export default function Event({events = [], match: {params}, user = {}}) {
     idToDelete => {
       clearError();
       console.log('id to delete', idToDelete);
-      const validate = validateUserIsOwner(eventAttendees, user);
+      const validate = validateUserIsOwner(eventAttendees, idToDelete);
       console.log('true or false', validate);
 
       if (validate) {
@@ -58,23 +62,28 @@ export default function Event({events = [], match: {params}, user = {}}) {
             setEventAttendees(newEventAttendees);
           })
           .catch(error => {
-            console.error(error);
+            setError(error);
           });
       } else {
-        setError('You are not the owner of this event');
+        setError(
+          'You cannot remove the owner of the event, consider using the additional information section to specify that you will not be attending.'
+        );
       }
     },
-    [eventAttendees, params.eventId, user]
+    [params.eventId, eventAttendees]
   );
 
   const addAttendee = useCallback(() => {
     clearError();
     console.log(eventAttendees);
-    const handleAddAttendee = (eventId = '', userId = '') => {
+    const handleAddAttendee = () => {
+      console.log('user', user);
+      console.log('params.eventId', params.eventId);
       const newEventUser = {
-        event_id: eventId,
-        user_id: userId,
+        event_id: params.eventId,
+        user_id: user.id,
         role_id: 2,
+        profile_name: user.profile_name,
       };
 
       setEventAttendees(eventAttendees => {
@@ -85,7 +94,7 @@ export default function Event({events = [], match: {params}, user = {}}) {
     const validate = validateUserNotAttending(eventAttendees, user.id);
     console.log('true or false', validate);
 
-    if (validate) {
+    if (!!validate) {
       UserApiService.postEventUser(params.eventId, user.id)
         .then(noContent => {
           console.log(params.eventId, user.id);
@@ -95,9 +104,9 @@ export default function Event({events = [], match: {params}, user = {}}) {
           console.error(error);
         });
     } else {
-      setError('You have already joined this event');
+      setError(`You are already attending ${event.name}`);
     }
-  }, [eventAttendees, params.eventId, user]);
+  }, [event.name, eventAttendees, params.eventId, user]);
 
   return (
     <React.Fragment>
@@ -123,17 +132,19 @@ export default function Event({events = [], match: {params}, user = {}}) {
         </Li>
       </ul>
       <h3>Attending Users</h3>
-      {loading ? (
+      {!!loading ? (
         <p className="blue">loading...</p>
       ) : (
         <UsersAttending
+          user={user}
           eventAttendees={eventAttendees}
           deleteAttendee={deleteAttendee}
           addAttendee={addAttendee}
         />
       )}
-      {error ? <p>${error}</p> : <p />}
+      {error ? <p>{error}</p> : <p />}
     </React.Fragment>
   );
 }
-/* <UsersAttending users={props.users} /> */
+
+export default React.memo(Event);

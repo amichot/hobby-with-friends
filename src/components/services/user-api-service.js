@@ -8,6 +8,7 @@ const UserApiService = {
     });
   },
   patchUser(text) {
+    console.log(text);
     return fetch(`${config.API_ENDPOINT}/user/${TokenService.getUserId()}`, {
       method: 'PATCH',
       headers: {
@@ -15,12 +16,9 @@ const UserApiService = {
         authorization: `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
-        id: config.USER_ID,
-        text,
+        ...text,
       }),
-    }).then(res =>
-      !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
-    );
+    });
   },
   // USERS ATTENDING EVENT
   getEventUsers(eventId) {

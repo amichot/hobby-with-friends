@@ -1,20 +1,30 @@
 import React from 'react';
-import {Route, Redirect} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import TokenService from '../services/token-service';
 import HomePage from '../../routes/HomePage/HomePage';
+import RegistrationPage from '../../routes/RegistrationPage/RegistrationPage';
 
 export default function PublicOnlyRoute({component, ...props}) {
   const Component = component;
   return (
-    <Route
-      {...props}
-      render={componentProps =>
-        TokenService.hasAuthToken() ? (
-          <HomePage />
+    <React.Fragment>
+      <Route
+        {...props}
+        render={componentProps =>
+          TokenService.hasAuthToken() ? (
+            <HomePage path="/home" />
+          ) : (
+            <Component {...componentProps} />
+          )
+        }
+      />
+      <Switch>
+        {TokenService.hasAuthToken() ? (
+          <Redirect to="/home" />
         ) : (
-          <Component {...componentProps} />
-        )
-      }
-    />
+          <RegistrationPage path="/register" />
+        )}
+      </Switch>
+    </React.Fragment>
   );
 }

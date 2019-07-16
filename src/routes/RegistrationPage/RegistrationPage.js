@@ -6,7 +6,7 @@ import RegistrationForm from '../../components/RegistrationForm/RegistrationForm
 
 export default function RegistrationPage(props) {
   const handleRegistrationSuccess = user => {
-    props.history.push('/login');
+    props.history.push('/');
   };
 
   return (
@@ -19,7 +19,7 @@ export default function RegistrationPage(props) {
       <p>
         Have an account?{' '}
         <Span>
-          <Link to="/login">Sign In</Link>
+          <Link to="/">Sign In</Link>
         </Span>
       </p>
     </Section>

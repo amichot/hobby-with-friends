@@ -14,7 +14,7 @@ const EventApiService = {
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
-  postEvent(text) {
+  postEvent(event) {
     return fetch(`${config.API_ENDPOINT}/event`, {
       method: 'POST',
       headers: {
@@ -22,7 +22,7 @@ const EventApiService = {
         authorization: `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
-        text,
+        event,
       }),
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
@@ -58,14 +58,20 @@ const EventApiService = {
     );
   },
   getEventsFiltered(text) {
+    console.log(JSON.stringify({text}));
     return fetch(`${config.API_ENDPOINT}/event/filter`, {
-      headers: {authorization: `bearer ${TokenService.getAuthToken()}`},
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+        authorization: `bearer ${TokenService.getAuthToken()}`,
+      },
       body: JSON.stringify({
-        text,
+        name: text.name,
+        type: text.type,
+        location: text.location,
+        date: text.date,
       }),
-    }).then(res =>
-      !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
-    );
+    });
   },
 };
 
