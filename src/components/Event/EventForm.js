@@ -3,6 +3,7 @@ import React from 'react';
 import {useFormInput, Button, Input, Required, Textarea} from '../Utils/Utils';
 
 export default function EventForm(props) {
+  console.log('Event Form Page Ran');
   const today = new Date();
   const todaysDate =
     today.getFullYear() +

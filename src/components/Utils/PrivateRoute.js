@@ -3,7 +3,6 @@ import {Route, Redirect} from 'react-router-dom';
 import TokenService from '../services/token-service';
 
 export default function PrivateRoute({render, ...props}) {
-  console.log('render private route');
   const Component = render;
   return (
     <Route

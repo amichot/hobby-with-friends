@@ -3,16 +3,14 @@ import {Button, Input, Required} from '../Utils/Utils';
 import AuthApiService from '../services/auth-api-service';
 
 export default function RegistrationForm(props) {
+  console.log('Registration Form Ran');
   const [alert, setAlert] = useState('');
-  console.log(alert);
 
   const handleSubmit = ev => {
     ev.preventDefault();
     setAlert('');
     const {profile_name, user_name, email, password} = ev.target;
 
-    console.log('registration form submitted');
-    console.log({profile_name, user_name, email, password});
     AuthApiService.postUser({
       profile_name: profile_name.value,
       name: user_name.value,

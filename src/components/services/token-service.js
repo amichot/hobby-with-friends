@@ -13,7 +13,6 @@ const TokenService = {
     window.localStorage.removeItem('config');
   },
   hasAuthToken() {
-    console.log('logged in? ', !!localStorage['config']);
     return !!localStorage['config'];
   },
   makeBasicAuthToken(userName, password) {

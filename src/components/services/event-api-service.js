@@ -58,7 +58,6 @@ const EventApiService = {
     );
   },
   getEventsFiltered(text) {
-    console.log(JSON.stringify({text}));
     return fetch(`${config.API_ENDPOINT}/event/filter`, {
       method: 'post',
       headers: {
@@ -66,10 +65,10 @@ const EventApiService = {
         authorization: `bearer ${TokenService.getAuthToken()}`,
       },
       body: JSON.stringify({
-        name: text.name,
-        type: text.type,
-        location: text.location,
-        date: text.date,
+        name: text.name || '',
+        type: text.type || '',
+        location: text.location || '',
+        date: text.date || '',
       }),
     });
   },

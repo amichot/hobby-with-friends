@@ -8,7 +8,6 @@ const UserApiService = {
     });
   },
   patchUser(text) {
-    console.log(text);
     return fetch(`${config.API_ENDPOINT}/user/${TokenService.getUserId()}`, {
       method: 'PATCH',
       headers: {
@@ -44,8 +43,6 @@ const UserApiService = {
     );
   },
   deleteEventUser(eventId, attendingUserId) {
-    const eventUsers = UserApiService.getEventUsers(eventId);
-    console.log(eventUsers);
     return fetch(
       `${config.API_ENDPOINT}/event-users/${eventId}/${attendingUserId}`,
       {

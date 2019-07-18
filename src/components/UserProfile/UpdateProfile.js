@@ -8,6 +8,7 @@ export default function EditProfile({
   error = {},
   ...props
 }) {
+  console.log('Update Profile Page Ran');
   const userData = {...user};
   const profile_name = useFormInput(userData.profile_name);
   const type = useFormInput(userData.type);
@@ -22,7 +23,6 @@ export default function EditProfile({
     email: email.value,
     about_me: about.value,
   };
-  console.log(user);
 
   return (
     <form

@@ -2,8 +2,8 @@ import React, {Suspense, lazy, useEffect, useState, useCallback} from 'react';
 import {Switch} from 'react-router-dom';
 import {HashLink as Link} from 'react-router-hash-link';
 
-import UserApiService from '../services/user-api-service';
-import EventApiService from '../services/event-api-service';
+import userApiService from '../services/user-api-service';
+import eventApiService from '../services/event-api-service';
 import {Table, MyDateFormat} from '../Utils/Utils';
 
 const PrivateRoute = lazy(() => import('../Utils/PrivateRoute'));
@@ -22,19 +22,18 @@ const UpdateProfilePage = lazy(() =>
 );
 
 export default function Home() {
-  //useCallback for passing prop functions
-  console.log('render Home');
+  console.log('Home Page Ran');
 
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [eventsHolder, setEventsHolder] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [usersEvents, setUsersEvents] = useState([]);
   const [user, setUser] = useState({});
   const [error, setError] = useState({});
-  console.log(user);
 
   const handleAddEvent = useCallback(
     event => {
-      console.log('new Event', event);
       const newEvent = {
         owner_id: user.id,
         name: event.name,
@@ -43,7 +42,7 @@ export default function Home() {
         date: event.date,
         information: event.information,
       };
-      EventApiService.postEvent(newEvent).then(res =>
+      eventApiService.postEvent(newEvent).then(res =>
         setEvents(events => {
           return [
             ...events,
@@ -66,9 +65,9 @@ export default function Home() {
 
   useEffect(() => {
     const getAllEvents = async () => {
-      const response = await EventApiService.getEvents();
+      const response = await eventApiService.getEvents();
       const data = await response.json();
-      console.log('data', data);
+
       setEvents(data);
       setLoading(false);
     };
@@ -88,17 +87,17 @@ export default function Home() {
         })
       );
     };
-    if (!!events) {
+    if (!!user.id) {
       copyEvents();
     }
-  }, [events]);
+  }, [user, events]);
 
   useEffect(() => {
     setLoading(true);
     const getUserInfo = async () => {
-      const response = await UserApiService.getUser();
+      const response = await userApiService.getUser();
       const data = await response.json();
-      console.log('user', data);
+
       setUser(data);
     };
 
@@ -108,7 +107,6 @@ export default function Home() {
 
   const handleUpdateUser = useCallback(
     newUser => {
-      console.log('new User Data', newUser);
       const newUserData = {
         id: user.id,
         profile_name: newUser.profile_name,
@@ -119,15 +117,47 @@ export default function Home() {
       };
       const patchUserData = async () => {
         setError({});
-        const response = await UserApiService.patchUser(newUserData);
+        const response = await userApiService.patchUser(newUserData);
         const data = await response.ok;
-        console.log('newUser data', data);
         !!data ? setUser(newUserData) : setError(data);
       };
       patchUserData(newUserData);
     },
     [user.id]
   );
+  useEffect(() => {
+    setLoading(true);
+    const eventHolderData = [...eventsHolder];
+    const userOwnedEvents = eventHolderData.filter(event => {
+      return event.owner_id === user.id;
+    });
+    setUsersEvents(userOwnedEvents);
+    setLoading(false);
+  }, [eventsHolder, user]);
+
+  useEffect(() => {
+    const usersType = {
+      type: user.type,
+    };
+    const searchUserType = async () => {
+      setLoading(true);
+      const response = await eventApiService.getEventsFiltered(usersType);
+      const data = await response.json();
+      setFilteredEvents(
+        data.map(event => {
+          return {
+            ...event,
+            name: <Link to={`/event/${event.id}#event`}>{event.name}</Link>,
+            date: MyDateFormat(event.date),
+          };
+        })
+      );
+    };
+    if (!!user.id) {
+      searchUserType();
+      setLoading(false);
+    }
+  }, [user]);
 
   const columns = [
     {
@@ -189,9 +219,9 @@ export default function Home() {
   return (
     <React.Fragment>
       <h3>My Events</h3>
-      <Table className="UserEventTable" data={eventsHolder} columns={columns} />
+      <Table className="UserEventTable" data={usersEvents} columns={columns} />
       <h3>Recommended Events</h3>
-      <Table data={eventsHolder} columns={columns} />
+      <Table data={filteredEvents} columns={columns} />
       {loading ? <p className="red">loading...</p> : renderMainRoutes()}
     </React.Fragment>
   );

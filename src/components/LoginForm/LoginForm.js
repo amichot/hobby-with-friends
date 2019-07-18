@@ -4,6 +4,7 @@ import AuthApiService from '../services/auth-api-service';
 import {Button, Input} from '../Utils/Utils';
 
 export default function LoginForm(props) {
+  console.log('Login Page Ran');
   const [error, setError] = useState(null);
   function updateError(e) {
     return setError(e);

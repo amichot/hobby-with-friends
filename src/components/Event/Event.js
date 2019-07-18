@@ -11,13 +11,11 @@ import UserApiService from '../services/user-api-service';
 import UsersAttending from './UsersAttending';
 
 function Event({events = [], match: {params}, user = {}}) {
-  console.log('render Event');
-  console.log(user);
+  console.log('Event Page Ran');
   const [event, setEvent] = useState({});
   const [loading, setLoading] = useState(true);
   const [eventAttendees, setEventAttendees] = useState([]);
   const [error, setError] = useState(null);
-  console.log('eventAttendees', eventAttendees);
 
   const clearError = () => setError('');
 
@@ -33,7 +31,6 @@ function Event({events = [], match: {params}, user = {}}) {
 
   useEffect(() => {
     const getAllEventAttendees = async () => {
-      console.log('id', event.id);
       const response = await UserApiService.getEventUsers(event.id);
       const data = await response.json();
       setEventAttendees(data);
@@ -48,9 +45,8 @@ function Event({events = [], match: {params}, user = {}}) {
   const deleteAttendee = useCallback(
     idToDelete => {
       clearError();
-      console.log('id to delete', idToDelete);
+
       const validate = validateUserIsOwner(eventAttendees, idToDelete);
-      console.log('true or false', validate);
 
       if (validate) {
         UserApiService.deleteEventUser(params.eventId, idToDelete)
@@ -58,7 +54,7 @@ function Event({events = [], match: {params}, user = {}}) {
             const newEventAttendees = eventAttendees.filter(
               ae => ae.user_id !== idToDelete
             );
-            console.log('remaining attending users', newEventAttendees);
+
             setEventAttendees(newEventAttendees);
           })
           .catch(error => {
@@ -75,10 +71,8 @@ function Event({events = [], match: {params}, user = {}}) {
 
   const addAttendee = useCallback(() => {
     clearError();
-    console.log(eventAttendees);
+
     const handleAddAttendee = () => {
-      console.log('user', user);
-      console.log('params.eventId', params.eventId);
       const newEventUser = {
         event_id: params.eventId,
         user_id: user.id,
@@ -90,14 +84,12 @@ function Event({events = [], match: {params}, user = {}}) {
         return [...eventAttendees, newEventUser];
       });
     };
-    console.log('id to join event', user.id);
+
     const validate = validateUserNotAttending(eventAttendees, user.id);
-    console.log('true or false', validate);
 
     if (!!validate) {
       UserApiService.postEventUser(params.eventId, user.id)
         .then(noContent => {
-          console.log(params.eventId, user.id);
           handleAddAttendee(params.eventId, user.id);
         })
         .catch(error => {
