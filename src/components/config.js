@@ -1,5 +1,5 @@
 export default {
-  API_ENDPOINT: 'https://git.heroku.com/arcane-plateau-48806.git',
+  API_ENDPOINT: 'https://arcane-plateau-48806.herokuapp.com',
   TOKEN_KEY: '',
   USER_ID: '',
 };
