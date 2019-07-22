@@ -15,10 +15,25 @@
     width: 100%;
     border-radius: 4px;
   }
+
+  .ReactTable {
+    background-color: #181a1b !important;
+    color: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f3ab0b;
+    box-shadow: 1px 1px 5px 3px #f3ab0b;
+    border-radius: 2px;
+    margin: 15px 0px;
+  }
+  .ReactTable .rt-tbody .rt-td {
+    border: 1px solid rgba(196, 190, 190, 0.06);
+}
   
   .Input::placeholder,
   .Textarea::placeholder {
-    color: #ccc;
+    color: rgb(66, 65, 65);
   }
   
   .Textarea {
@@ -35,7 +50,7 @@
   }
   
   .Required {
-    color: #CA1551;
+    color: rgb(255, 2, 2);
     font-family: Arial;
     font-weight: bold;
   }
@@ -54,6 +69,11 @@
     font-weight: normal;
   }
 
+  #hint {
+    font-size: 11.5px;
+    color: #fff;
+  }
+
   .Li {
     list-style-type: none;
     font-weight: bold;
@@ -62,16 +82,22 @@
   
   /* UsersAttending */
   .remove_user_button {
+    margin-left: 7%;
     padding: 0;
     font-weight: normal;
     font-size: .9em;
-    color: rgb(170, 27, 27);
+    color: rgb(255, 5, 5);
   }
 
   .join_button {
     margin-top: 10px;
+    border: 1px solid #f3ab0b;
     border-radius: 10px;
-    background-color: green;
+    background-color: rgb(129, 219, 241);
+  }
+
+  .join_button:hover {
+    box-shadow: 1px 1px 5px 1px #f3ab0b;
   }
 
   .user {
@@ -80,6 +106,7 @@
   }
 
   .Ul {
-    border: 1px solid grey;
+    border: 1px solid #f3ab0b;
+    border-radius: 10px;
     max-width: 600px;
   }

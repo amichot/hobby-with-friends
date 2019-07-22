@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Inder&display=swap');
+
 
 * {
   box-sizing: border-box;
@@ -6,13 +6,16 @@
 
 body {
   margin: 0;
-  font-family: 'Inder', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 p {
-  color: #555;
+  color: #66dbff;
+}
+
+a {
+  color: #66dbff;
 }
 
 .blue {

@@ -218,9 +218,10 @@ export default function Home() {
 
   return (
     <React.Fragment>
-      <h3>My Events</h3>
+      <h3>My Events </h3>
       <Table className="UserEventTable" data={usersEvents} columns={columns} />
-      <h3>Recommended Events</h3>
+      <h3 id="recommended-events">Recommended Events</h3>
+      <p id="hint">(Edit Your interests in profile for related events)</p>
       <Table data={filteredEvents} columns={columns} />
       {loading ? <p className="red">loading...</p> : renderMainRoutes()}
     </React.Fragment>
