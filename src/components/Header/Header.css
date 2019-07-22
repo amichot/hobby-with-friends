@@ -106,7 +106,7 @@ nav ul ul {
     position: absolute;
     /* has to be the same number as the "line-height" of "nav a" */
     top: 30px;
-    background: #fff;
+    background: rgb(7, 7, 7);
     padding: 10px;
 }
 
@@ -185,7 +185,8 @@ li > a:only-child:after {
         padding: 6px 15px;
         font-size: 16px;
         text-decoration: none;
-        border: none;
+        border: 1px solid rgb(20, 167, 167);
+        border-radius: 2px;
         float: right;
         margin-right: 0em;
         background-color: #fff;
@@ -193,6 +194,7 @@ li > a:only-child:after {
         text-transform: capitalize;
         font-weight: 400;
         cursor: pointer !important;
+        
     }
     .menu .toggle {
         float: none;
@@ -207,13 +209,14 @@ li > a:only-child:after {
 
     .toggle:hover {
         color: rgb(20, 167, 167);
+        box-shadow: 1px 1px 2px 1px rgb(20, 167, 167);
         background-color: #fff;
     }
 
     /* Display Dropdown when clicked on Parent Label */
     [id^=drop]:checked + ul {
         display: block;
-        background: #fff;
+        background: black;
         padding: 15px 0;
         text-align: center;
         width: 80%;
@@ -294,7 +297,7 @@ li > a:only-child:after {
 @media all and (max-width:568px) {
     [id^=drop]:checked + ul {
         display: block;
-        background: #fff;
+        background: black;
         padding: 15px 0;
         text-align: center;
         width: 100%;
