@@ -17,15 +17,15 @@
   }
 
   .ReactTable {
-    background-color: #181a1b !important;
-    color: #fff;
+    background-color: #07253f!important;
+    color: #A9B8A6;
     position: relative;
     display: flex;
     flex-direction: column;
-    border: 1px solid #f3ab0b;
-    box-shadow: 1px 1px 5px 3px #f3ab0b;
+    border: 1px solid #CC9765;
+    box-shadow: 1px 1px 5px 3px #CC9765;
     border-radius: 2px;
-    margin: 15px 0px;
+    margin: 15px 0;
   }
   .ReactTable .rt-tbody .rt-td {
     border: 1px solid rgba(196, 190, 190, 0.06);
@@ -91,13 +91,13 @@
 
   .join_button {
     margin-top: 10px;
-    border: 1px solid #f3ab0b;
+    border: 3px dotted #fff;
     border-radius: 10px;
-    background-color: rgb(129, 219, 241);
+    background-color: #CC9765;
   }
 
   .join_button:hover {
-    box-shadow: 1px 1px 5px 1px #f3ab0b;
+    box-shadow: 1px 1px 5px 1px #CC9765;
   }
 
   .user {
@@ -106,7 +106,8 @@
   }
 
   .Ul {
-    border: 1px solid #f3ab0b;
+    border: 1px solid #CC9765;
+    box-shadow: 1px 1px 5px 3px #CC9765;
     border-radius: 10px;
     max-width: 600px;
   }

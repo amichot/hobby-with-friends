@@ -1,9 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Patrick+Hand&display=swap');
 
+html {
+  border-top: 2px solid #CC9765;
+}
+
 html,
 body {
     font-family: 'Patrick Hand', cursive, sans-serif;
-    margin: 50px;
+    margin: 0px 50px 50px 50px;
+    padding-top: 50px;
     font-size: 100%;
     background: black;
     color: white;
@@ -86,8 +91,10 @@ ul {
 
 @media screen and (max-width: 800px) {
   html, body {
-    margin: 15px; 
+    margin: 0 15px 15px 15px;
+    padding-top: 15px;  
   }
+
   h1,
   h2,
   h3,

@@ -12,7 +12,7 @@ export default class Header extends Component {
     return (
       <div className="Header__logged-in">
         <label htmlFor="drop" className="toggle">
-          menu
+          m e n u
         </label>
         <input type="checkbox" id="drop" />
         <ul className="menu mt-2 ml-auto">

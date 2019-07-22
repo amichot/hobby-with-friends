@@ -1,8 +1,14 @@
 
   
   header {
-    position: absolute;
+    background-size: cover;
+    position: fixed;
+    top: 0px;
+    right: 20px;
     z-index: 9;
+    transform: translate(20px, 0px);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #CC9765;
     width: 100%;
 }
 
@@ -182,18 +188,18 @@ li > a:only-child:after {
     /* Style for the toggle label */
     .toggle {
         display: block;
-        padding: 6px 15px;
+        padding: 4px 15px;
         font-size: 16px;
         text-decoration: none;
-        border: 1px solid rgb(20, 167, 167);
+        border-top: 4px solid #CC9765;
         border-radius: 2px;
         float: right;
-        margin-right: 0em;
+        margin-right: 0;
         background-color: #fff;
-        color: rgb(20, 167, 167);
+        color: #07253F;
         text-transform: capitalize;
         font-weight: 400;
-        cursor: pointer !important;
+        cursor: pointer!important;
         
     }
     .menu .toggle {
@@ -208,8 +214,8 @@ li > a:only-child:after {
     }
 
     .toggle:hover {
-        color: rgb(20, 167, 167);
-        box-shadow: 1px 1px 2px 1px rgb(20, 167, 167);
+        color: #CC9765;
+        box-shadow: 1px 1px 2px 1px #CC9765;
         background-color: #fff;
     }
 

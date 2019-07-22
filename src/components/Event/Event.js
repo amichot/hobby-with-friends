@@ -122,7 +122,7 @@ function Event({events = [], match: {params}, user = {}}) {
           <Span>{event.information}</Span>
         </Li>
       </ul>
-      <h3>Attending Users</h3>
+      <h3 id="focus">Attending Users</h3>
       {!!loading ? (
         <p className="blue">loading...</p>
       ) : (

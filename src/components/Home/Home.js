@@ -79,7 +79,7 @@ export default function Home() {
         data.map(event => {
           return {
             ...event,
-            name: <Link to={`/event/${event.id}#event`}>{event.name}</Link>,
+            name: <Link to={`/event/${event.id}#focus`}>{event.name}</Link>,
             date: MyDateFormat(event.date),
           };
         })
