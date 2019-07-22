@@ -222,7 +222,7 @@ li > a:only-child:after {
     /* Display Dropdown when clicked on Parent Label */
     [id^=drop]:checked + ul {
         display: block;
-        background: black;
+        background: rgba(0,0,0,.2);
         padding: 15px 0;
         text-align: center;
         width: 80%;
@@ -303,7 +303,6 @@ li > a:only-child:after {
 @media all and (max-width:568px) {
     [id^=drop]:checked + ul {
         display: block;
-        background: black;
         padding: 15px 0;
         text-align: center;
         width: 100%;
