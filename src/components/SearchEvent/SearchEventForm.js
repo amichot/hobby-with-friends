@@ -5,7 +5,6 @@ import eventApiService from '../services/event-api-service';
 import SearchEventResults from './SearchEventResults';
 
 export default function SearchEventForm(props) {
-  console.log('Search Event Page Ran');
   const [searchByDate, setSearchByDate] = useState(false);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const today = new Date();

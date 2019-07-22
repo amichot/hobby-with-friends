@@ -6,7 +6,6 @@ import {Table, MyDateFormat} from '../Utils/Utils';
 import 'react-table/react-table.css';
 
 export default function SearchEventResults({events = []}) {
-  console.log('Search Results Ran');
   const data = [...events];
 
   data.forEach(e => {

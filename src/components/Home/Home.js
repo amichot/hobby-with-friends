@@ -22,8 +22,6 @@ const UpdateProfilePage = lazy(() =>
 );
 
 export default function Home() {
-  console.log('Home Page Ran');
-
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [eventsHolder, setEventsHolder] = useState([]);

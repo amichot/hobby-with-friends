@@ -50,7 +50,6 @@ export default class Header extends Component {
     );
   };
   render() {
-    console.log('Header Page Ran');
     return (
       <nav className="py-4 d-lg-flex">
         <div id="logo">

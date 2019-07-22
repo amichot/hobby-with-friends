@@ -3,7 +3,6 @@ import {HashLink as Link} from 'react-router-hash-link';
 import {Button, Li, Span} from '../Utils/Utils';
 
 export default function UserProfile({user = {}}) {
-  console.log('Profile Page Ran');
   return (
     <React.Fragment>
       <ul className="ProfileInfo">

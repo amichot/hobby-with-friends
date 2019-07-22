@@ -3,7 +3,6 @@ import {Button, Input, Required} from '../Utils/Utils';
 import AuthApiService from '../services/auth-api-service';
 
 export default function RegistrationForm(props) {
-  console.log('Registration Form Ran');
   const [alert, setAlert] = useState('');
 
   const handleSubmit = ev => {

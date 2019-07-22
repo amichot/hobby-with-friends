@@ -11,7 +11,6 @@ import UserApiService from '../services/user-api-service';
 import UsersAttending from './UsersAttending';
 
 function Event({events = [], match: {params}, user = {}}) {
-  console.log('Event Page Ran');
   const [event, setEvent] = useState({});
   const [loading, setLoading] = useState(true);
   const [eventAttendees, setEventAttendees] = useState([]);
