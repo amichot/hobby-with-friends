@@ -78,7 +78,6 @@ ul {
     -o-background-size: cover;
     -ms-background-size: cover;
     background-size: cover;
-    position: relative;
 }
 
 .layer {
