@@ -1,0 +1,18 @@
+.indent {
+    text-indent: 30px;
+  }
+
+#description {
+    display: none;
+
+  }
+  
+.welcome {
+    padding-bottom: 10px;
+    padding-right: 20px;
+  }
+
+  .container {
+      display: flex;
+      align-items: center;
+  }
