@@ -11,7 +11,7 @@
 ### Client
 * git clone https://github.com/amichot/hobby-with-friends.git <br>
 * npm install
-* npm start
+* npm start <br>
 Runs the app in the development mode. <br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser. <br>
 note: client is setup to connect to live server. <br>
@@ -21,7 +21,7 @@ note: client is setup to connect to live server. <br>
 * git clone https://github.com/amichot/hobby-with-friends-api.git
 * npm install
 * npm run dev (to start server locally, server will reload if you make edits) <br>
-notes: server is setup to connect to live PostgreSQL database. <br>
+* notes: server is setup to connect to live PostgreSQL database. <br>
 Migrations are available if you choose to create your own PostgreSQL server. <br>
 
 ## Description
