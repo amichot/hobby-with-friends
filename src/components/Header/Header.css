@@ -2,13 +2,7 @@
   
   header {
     background-size: cover;
-    position: fixed;
-    top: 0px;
-    right: 20px;
-    z-index: 9;
-    transform: translate(20px, 0px);
-    background: rgba(0, 0, 0, 0.5);
-    border: 1px solid #CC9765;
+    position: relative;
     width: 100%;
 }
 
@@ -30,12 +24,11 @@ nav {
     display: initial;
     margin: 0;
     letter-spacing: 1px;
-    color: rgb(20, 167, 167);
+    color: #CC9765;
     padding: 0;
     font-size: 0.9em;
     font-weight: 800;
     text-transform: capitalize;
-    color: rgb(20, 167, 167);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
     font-family: 'M PLUS Rounded 1c', sans-serif;
 
@@ -77,7 +70,7 @@ nav ul li {
 /* Styling the links */
 
 nav ul.menu li a {
-    color: rgb(20, 167, 167);
+    color: #CC9765;
     text-transform: capitalize;
     font-size: 0.95em;
     letter-spacing: 2px;
@@ -133,7 +126,7 @@ nav ul ul li {
 }
 
 nav ul.menu li ul li a {
-    color: rgb(20, 167, 167);
+    color: #CC9765;
     padding: 5px 10px;
     display: block;
 }
@@ -175,7 +168,7 @@ li > a:only-child:after {
         margin: 0;
     }
     nav a {
-      color: rgb(20, 167, 167)
+      color: #CC9765
     }
 
     /* Hide the navigation menu by default */
@@ -241,7 +234,7 @@ li > a:only-child:after {
         padding: 0 40px;
     }
     nav ul.menu li a {
-        color:rgb(20, 167, 167);
+        color:#CC9765;
     }
 
     nav a:hover,
@@ -253,7 +246,7 @@ li > a:only-child:after {
     nav ul ul a,
     nav ul ul ul a {
         padding: 14px 20px;
-        color:rgb(20, 167, 167);
+        color:#CC9765;
         font-size: 15px;
     }
 
@@ -314,7 +307,7 @@ li > a:only-child:after {
         text-align: center;
         margin: auto;
         width: 70%;
-        color: rgb(20, 167, 167);
+        color: #CC9765;
     }
 
 }
