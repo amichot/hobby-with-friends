@@ -30,6 +30,11 @@
   .ReactTable .rt-tbody .rt-td {
     border: 1px solid rgba(196, 190, 190, 0.06);
 }
+
+.ReactTable .-pagination .-btn {
+  
+  color: rgba(245, 245, 245, 0.911) !important;
+}
   
   .Input::placeholder,
   .Textarea::placeholder {

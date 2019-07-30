@@ -6,11 +6,12 @@ import {Button, Input} from '../Utils/Utils';
 export default function LoginForm(props) {
   const [error, setError] = useState(null);
   function updateError(e) {
-    return setError(e);
+    return setError(typeof e === 'object' ? 'There was an error' : e);
   }
 
   const handleSubmitJwtAuth = ev => {
     ev.preventDefault();
+    setError(null);
     const {name, password} = ev.target;
 
     AuthApiService.postLogin({

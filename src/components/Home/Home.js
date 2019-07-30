@@ -216,6 +216,7 @@ export default function Home() {
 
   return (
     <React.Fragment>
+      <h2>{user.profile_name}</h2>
       <h3>My Events </h3>
       <Table className="UserEventTable" data={usersEvents} columns={columns} />
       <h3 id="recommended-events">Recommended Events</h3>
