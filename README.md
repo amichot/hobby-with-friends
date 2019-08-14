@@ -25,11 +25,11 @@ note: client is setup to connect to live server. <br>
 Migrations are available if you choose to create your own PostgreSQL server. <br>
 
 ## Description
-Hobby with Friends is designed to connect you with others that enjoy similar interests. Have you ever organized an event by sending a mass text message that unavoidably leads to everyone's phone being spammed, or simply showed up to your college gym looking for a pick-up game of basketball to find it empty? This app excels at keeping you connected and organized. Start by creating an account, then head over to your profile page to add your interests. Your home page will show you the events you created along with events that match your interests. Search for events around you, find the one you like click the title to view the full details of the event, then hit the join button to let the event owner you will be attending. Creating an event has never been easier, simply fill out the form and tell your friends about the website. As the owner of the event, you will have the ability to remove users from the event.
+Hobby with Friends is designed to connect you with others that enjoy similar interests. Have you ever showed up to your college gym looking for a pick-up game of basketball to find it empty? This app excels at keeping you connected and organized. With a quick search you can find an event that suits you. Start by creating an account, then head over to your profile page to add your interests. Your home page will show you the events you created along with events that match your interests. Search for events around you, find the one you like click the title to view the full details of the event, then hit the join button to let the event owner you will be attending. Creating an event has never been easier, simply fill out the form and tell your friends about the website.
 
 ### future updates
 * event comment section
-* add friends to receive notifications when they create an event
+* event reminders
 * view other users profiles
 
 ## Technologies Used
